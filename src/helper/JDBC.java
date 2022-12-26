@@ -24,7 +24,7 @@ public abstract class JDBC {
         }
         catch(Exception e)
         {
-            System.out.println("Error:" + e.getMessage());
+            System.out.println("Error:" + e.getStackTrace()); //Changed top getStackTrace from getMessage
         }
     }
 
@@ -37,5 +37,14 @@ public abstract class JDBC {
         {
             System.out.println("Error:" + e.getMessage());
         }
+    }
+
+    /**
+     * @author Matt Meenan
+     * Keeps connection open
+     * @return
+     */
+    public static Connection getConnection() {
+        return connection;
     }
 }
