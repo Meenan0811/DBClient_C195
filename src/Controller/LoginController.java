@@ -26,5 +26,5 @@ public class LoginController {
     public void setSubmitButton(javafx.event.ActionEvent actionEvent) {
     }
 
-    //FIXME Determine user Locale and display
+    //FIXME Determine user Locale and display language
 }

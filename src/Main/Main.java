@@ -30,8 +30,9 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        JDBC.openConnection(); //opens connection
         launch(args);
-        //JDBC.openConnection();
 
+        JDBC.closeConnection(); //Closes connection
     }
 }
