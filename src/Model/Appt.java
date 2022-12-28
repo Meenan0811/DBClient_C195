@@ -15,7 +15,7 @@ public class Appt {
     private int contactId;
     private String createBy;
 
-    public Appt (String title,String description, String location, String type, LocalDateTime start, LocalDateTime end, int custId, int userId, int contactId ) {
+    public Appt (String title,String description, String location, String type, LocalDateTime start, LocalDateTime end, String createBy, int custId, int userId, int contactId ) {
         this.title = title;
         this.description = description;
         this.location = location;
@@ -25,6 +25,7 @@ public class Appt {
         this.custId = custId;
         this.userId = userId;
         this.contactId = contactId;
+        this.createBy = createBy;
     }
 
     //Set Methods
@@ -51,22 +52,26 @@ public class Appt {
     public void setContactId(int contactId) { this.contactId = contactId; }
 
     //Get Methods
-    public int getApptId() { return apptId; }
+    public int getApptId() { return this.apptId; }
 
-    public String getTitle() { return title; }
+    public String getTitle() { return this.title; }
 
-    public String getDescription() { return description;}
+    public String getDescription() { return this.description;}
 
-    public String getLocation() { return location; }
+    public String getLocation() { return this.location; }
 
-    public LocalDateTime getStart() { return start; }
+    public LocalDateTime getStart() { return this.start; }
 
-    public LocalDateTime getEnd() { return end; }
+    public LocalDateTime getEnd() { return this.end; }
 
-    public int getCustId() { return custId; }
+    public int getCustId() { return this.custId; }
 
-    public int getUserId() { return userId; }
+    public int getUserId() { return this.userId; }
 
-    public int getContactId() { return contactId; }
+    public int getContactId() { return this.contactId; }
+
+    public String getType() { return this.type; }
+
+    public String getCreateBy() { return this.createBy; }
 
 }
