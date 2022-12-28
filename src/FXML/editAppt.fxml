@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="FXML.EditAppt"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="732.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.AddAppt">
+   <children>
+      <Label layoutX="73.0" layoutY="83.0" text="Title" />
+      <Label layoutX="73.0" layoutY="110.0" text="Description" />
+      <Label layoutX="85.0" layoutY="141.0" text="Location" />
+      <Label layoutX="85.0" layoutY="179.0" text="Type" />
+      <Label layoutX="85.0" layoutY="211.0" text="Start Date" />
+      <Label layoutX="84.0" layoutY="281.0" text="End Date" />
+      <Label layoutX="85.0" layoutY="243.0" text="Start Time" />
+      <Label layoutX="83.0" layoutY="311.0" text="End Time" />
+      <Label layoutX="90.0" layoutY="358.0" text="Customer Name" />
+      <Label layoutX="97.0" layoutY="405.0" text="User Id" />
+      <ComboBox fx:id="custNameCombo" layoutX="210.0" layoutY="354.0" prefWidth="150.0" />
+      <DatePicker fx:id="startDate" layoutX="215.0" layoutY="207.0" />
+      <DatePicker fx:id="endDate" layoutX="208.0" layoutY="277.0" />
+      <ComboBox fx:id="endHrCombo" layoutX="208.0" layoutY="307.0" prefHeight="25.0" prefWidth="61.0" />
+      <ComboBox fx:id="endMinCombo" layoutX="284.0" layoutY="307.0" prefHeight="25.0" prefWidth="69.0" />
+      <ComboBox fx:id="startHrCombo" layoutX="208.0" layoutY="239.0" prefHeight="25.0" prefWidth="61.0" />
+      <ComboBox fx:id="startMinCombo" layoutX="284.0" layoutY="239.0" prefHeight="25.0" prefWidth="69.0" />
+      <TextField fx:id="titleText" layoutX="210.0" layoutY="79.0" />
+      <TextField fx:id="descriptionText" layoutX="210.0" layoutY="115.0" />
+      <TextField fx:id="locationText" layoutX="210.0" layoutY="146.0" />
+      <TextField fx:id="typeText" layoutX="210.0" layoutY="175.0" />
+      <TextField fx:id="userIdText" editable="false" layoutX="210.0" layoutY="401.0" />
+      <Button layoutX="139.0" layoutY="497.0" mnemonicParsing="false" text="Save" />
+      <Button layoutX="327.0" layoutY="497.0" mnemonicParsing="false" text="Cancel" />
+   </children>
 </AnchorPane>
