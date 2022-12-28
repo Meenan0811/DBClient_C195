@@ -9,16 +9,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DBCountries {
+public class CountriesSQL {
 
     /**
      * Grabs information from Country table and adds to Countries object and List
      * @return ObservableList<Countries></Countries>
      * @author Matt Meenan
      */
-    public static ObservableList<Countries> getCountries() {
+    public static ObservableList<Model.Countries> getCountries() {
 
-        ObservableList<Countries> cList = FXCollections.observableArrayList();
+        ObservableList<Model.Countries> cList = FXCollections.observableArrayList();
 
         try{
             String sql = "SELECT * from countries";
@@ -28,7 +28,7 @@ public class DBCountries {
             while (rs.next()) {
                 int countryID = rs.getInt("Country_ID");
                 String countryName = rs.getString("Country");
-                Countries c = new Countries(countryID, countryName);
+                Model.Countries c = new Model.Countries(countryID, countryName);
                 cList.add(c);
             }
         } catch (SQLException throwables) {

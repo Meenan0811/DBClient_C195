@@ -1,8 +1,5 @@
 package Controller;
 
-import DBAccess.DBCountries;
-import Model.Countries;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
