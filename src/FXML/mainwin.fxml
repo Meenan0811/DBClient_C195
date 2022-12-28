@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane fx:id="mainWindow" prefHeight="707.0" prefWidth="1242.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainWinController">
    <children>
       <Button fx:id="apptAddButton" layoutX="139.0" layoutY="291.0" mnemonicParsing="false" text="Add" />
@@ -14,7 +13,7 @@
       <Button fx:id="apptDeleteButton" layoutX="319.0" layoutY="291.0" mnemonicParsing="false" text="Delete" />
       <Button fx:id="reportButton" layoutX="828.0" layoutY="465.0" mnemonicParsing="false" text="Reports" />
       <Button fx:id="logoutButton" layoutX="829.0" layoutY="540.0" mnemonicParsing="false" text="Logout" />
-      <TableView layoutX="139.0" layoutY="63.0" prefHeight="200.0" prefWidth="818.0">
+      <TableView fx:id="apptTable" layoutX="139.0" layoutY="63.0" prefHeight="200.0" prefWidth="818.0">
         <columns>
           <TableColumn fx:id="apptIdCol" prefWidth="60.0" text="ID" />
           <TableColumn fx:id="titleCol" prefWidth="90.0" text="Title" />
@@ -24,11 +23,11 @@
             <TableColumn fx:id="typeCol" prefWidth="75.0" text="Type" />
             <TableColumn fx:id="startCol" prefWidth="107.0" text="Start Date/Time" />
             <TableColumn fx:id="endCol" prefWidth="94.0" text="End Date/Time" />
-            <TableColumn fx:id="custIdCol" prefWidth="77.0" text="Customer ID" />
+            <TableColumn fx:id="apptCustIdCol" prefWidth="77.0" text="Customer ID" />
             <TableColumn fx:id="userIdCol" prefWidth="89.0" text="User ID" />
         </columns>
       </TableView>
-      <TableView layoutX="137.0" layoutY="365.0" prefHeight="200.0" prefWidth="606.0">
+      <TableView fx:id="custTable" layoutX="137.0" layoutY="365.0" prefHeight="200.0" prefWidth="606.0">
         <columns>
           <TableColumn fx:id="custIdCol" prefWidth="55.0" text="ID" />
           <TableColumn fx:id="nameCol" prefWidth="136.0" text="Name" />
