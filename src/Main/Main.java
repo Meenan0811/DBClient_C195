@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+
+
 public class Main extends Application {
 
 
@@ -31,6 +33,8 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         JDBC.openConnection(); //opens connection
+        //FIXME: Remove before submission
+        //Locale.setDefault(new Locale("fr"));
         launch(args);
 
         JDBC.closeConnection(); //Closes connection

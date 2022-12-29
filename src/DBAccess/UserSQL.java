@@ -1,5 +1,6 @@
 package DBAccess;
 
+import Model.User;
 import helper.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,4 +37,6 @@ public class UserSQL {
         }
         return userList;
     }
+
+    public static User currUser()
 }

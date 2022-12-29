@@ -15,7 +15,7 @@ public class Appt {
     private int contactId;
     private String createBy;
 
-    public Appt (String title,String description, String location, String type, LocalDateTime start, LocalDateTime end, String createBy, int custId, int userId, int contactId ) {
+    public Appt (int apptId, String title,String description, String location, String type, LocalDateTime start, LocalDateTime end, String createBy, int custId, int userId, int contactId ) {
         this.title = title;
         this.description = description;
         this.location = location;
@@ -26,6 +26,7 @@ public class Appt {
         this.userId = userId;
         this.contactId = contactId;
         this.createBy = createBy;
+        this.apptId = apptId;
     }
 
     //Set Methods

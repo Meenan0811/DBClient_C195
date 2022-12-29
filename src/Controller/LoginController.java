@@ -37,11 +37,13 @@ public class LoginController implements Initializable {
     private Label locTagLabel;
     @FXML
     private Button submitButton;
+    private ResourceBundle rb;
+    public static String currUser;
 
 
 
 
-    //FIXME: choose either locale or System for language selection
+    //FIXME: choose either locale or System for language selection, work on resourcebundle and properties file
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ZoneId zoneId = ZoneId.systemDefault();
@@ -49,6 +51,8 @@ public class LoginController implements Initializable {
         Locale locale = Locale.getDefault(); //Creates locale object
         String lang = locale.getDisplayLanguage(); //Gets default language
         String langCode = System.getProperty("user.language"); // Gets language code
+        rb = ResourceBundle.getBundle("language");
+        userNameLabel.setText(rb.getString("userLabel"));
 
     }
 
@@ -64,12 +68,13 @@ public class LoginController implements Initializable {
 
             if(userName.contains(tempU) && pass.contains(tempP)) {
                 valid = true;
+                currUser = userName;
                 Scenes.toMain(actionEvent);
                 break;
             }
         }
         if(!valid) {
-            Alerts.loginAlert(1);
+            Alerts.alertMessage(1);
         }
 
 
