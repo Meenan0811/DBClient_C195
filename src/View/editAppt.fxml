@@ -31,7 +31,7 @@
       <TextField fx:id="locationText" layoutX="210.0" layoutY="146.0" />
       <TextField fx:id="typeText" layoutX="210.0" layoutY="175.0" />
       <TextField fx:id="userIdText" editable="false" layoutX="210.0" layoutY="401.0" />
-      <Button layoutX="139.0" layoutY="497.0" mnemonicParsing="false" text="Save" />
-      <Button layoutX="327.0" layoutY="497.0" mnemonicParsing="false" text="Cancel" />
+      <Button fx:id="saveButton" layoutX="139.0" layoutY="497.0" mnemonicParsing="false" onAction="#saveEditAppt" text="Save" />
+      <Button fx:id="cancelButton" layoutX="327.0" layoutY="497.0" mnemonicParsing="false" onAction="#toMain" text="Cancel" />
    </children>
 </AnchorPane>

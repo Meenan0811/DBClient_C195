@@ -8,11 +8,11 @@
 
 <AnchorPane fx:id="mainWindow" prefHeight="707.0" prefWidth="1242.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainWinController">
    <children>
-      <Button fx:id="apptAddButton" layoutX="139.0" layoutY="291.0" mnemonicParsing="false" text="Add" />
-      <Button fx:id="apptUpdateButton" layoutX="216.0" layoutY="291.0" mnemonicParsing="false" text="Update" />
+      <Button fx:id="apptAddButton" layoutX="139.0" layoutY="291.0" mnemonicParsing="false" onAction="#toAddAppt" text="Add" />
+      <Button fx:id="apptUpdateButton" layoutX="216.0" layoutY="291.0" mnemonicParsing="false" onAction="#toEditAppt" text="Update" />
       <Button fx:id="apptDeleteButton" layoutX="319.0" layoutY="291.0" mnemonicParsing="false" text="Delete" />
-      <Button fx:id="reportButton" layoutX="828.0" layoutY="465.0" mnemonicParsing="false" text="Reports" />
-      <Button fx:id="logoutButton" layoutX="829.0" layoutY="540.0" mnemonicParsing="false" text="Logout" />
+      <Button fx:id="reportButton" layoutX="828.0" layoutY="465.0" mnemonicParsing="false" onAction="#toReport" text="Reports" />
+      <Button fx:id="logoutButton" layoutX="829.0" layoutY="540.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
       <TableView fx:id="apptTable" layoutX="139.0" layoutY="63.0" prefHeight="200.0" prefWidth="818.0">
         <columns>
           <TableColumn fx:id="apptIdCol" prefWidth="60.0" text="ID" />
@@ -37,8 +37,8 @@
             <TableColumn fx:id="postalCol" prefWidth="90.0" text="Postal Code" />
         </columns>
       </TableView>
-      <Button fx:id="custAddButton" layoutX="139.0" layoutY="605.0" mnemonicParsing="false" text="Add" />
-      <Button fx:id="custUpdateButton" layoutX="216.0" layoutY="605.0" mnemonicParsing="false" text="Update" />
+      <Button fx:id="custAddButton" layoutX="139.0" layoutY="605.0" mnemonicParsing="false" onAction="#toAddCust" text="Add" />
+      <Button fx:id="custUpdateButton" layoutX="216.0" layoutY="605.0" mnemonicParsing="false" onAction="#toEditCust" text="Update" />
       <Button fx:id="custDeleteButton" layoutX="319.0" layoutY="605.0" mnemonicParsing="false" text="Delete" />
       <RadioButton fx:id="weekRadio" layoutX="216.0" layoutY="14.0" mnemonicParsing="false" text="Week View" />
       <RadioButton fx:id="monthRadio" layoutX="404.0" layoutY="14.0" mnemonicParsing="false" text="Month View" />
