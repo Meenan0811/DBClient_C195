@@ -1,6 +1,9 @@
 package Controller;
 
+import DBAccess.UserSQL;
+import Model.User;
 import helper.Scenes;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,19 +42,9 @@ public class LoginController implements Initializable {
     private Label locTagLabel;
     @FXML
     private Button submitButton;
+    private ObservableList<Model.User> userList = UserSQL.getUsers();
 
 
-
-    public void setSubmitButton(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent mainWin = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../View/mainwin.fxml")));
-        Scene scene = new Scene(mainWin);
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setTitle("Appointment Schedule");
-        stage.setScene(scene);
-        stage.show();
-
-
-    }
 
     //FIXME: choose either locale or System for language selection
     @Override
@@ -62,7 +55,16 @@ public class LoginController implements Initializable {
         String lang = locale.getDisplayLanguage(); //Gets default language
         String langCode = System.getProperty("user.language"); // Gets language code
 
+    }
 
+    public void setSubmitButton(javafx.event.ActionEvent actionEvent) throws IOException {
+        String userName = userText.getText();
+        String pass = passWordPassField.getText();
+        for(User u: userList) {
+            System.out.println("User ID: " + u.getUserId() + " | UserName: " + u.getUserName() + "");
+        }
+
+        Scenes.toMain(actionEvent);
     }
 
 }
