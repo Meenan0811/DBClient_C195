@@ -2,25 +2,20 @@ package Controller;
 
 import DBAccess.UserSQL;
 import Model.User;
+import helper.Alerts;
 import helper.Scenes;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.ZoneId;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -42,7 +37,7 @@ public class LoginController implements Initializable {
     private Label locTagLabel;
     @FXML
     private Button submitButton;
-    private ObservableList<Model.User> userList = UserSQL.getUsers();
+
 
 
 
@@ -60,11 +55,24 @@ public class LoginController implements Initializable {
     public void setSubmitButton(javafx.event.ActionEvent actionEvent) throws IOException {
         String userName = userText.getText();
         String pass = passWordPassField.getText();
+        ObservableList<Model.User> userList = UserSQL.getUsers();
+        boolean valid = false;
+
         for(User u: userList) {
-            System.out.println("User ID: " + u.getUserId() + " | UserName: " + u.getUserName() + "");
+            String tempU = u.getUserName();
+            String tempP = u.getPassWord();
+
+            if(userName.contains(tempU) && pass.contains(tempP)) {
+                valid = true;
+                Scenes.toMain(actionEvent);
+                break;
+            }
+        }
+        if(!valid) {
+            Alerts.loginAlert(1);
         }
 
-        Scenes.toMain(actionEvent);
+
     }
 
 }
