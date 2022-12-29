@@ -37,6 +37,4 @@ public class UserSQL {
         }
         return userList;
     }
-
-    public static User currUser()
 }

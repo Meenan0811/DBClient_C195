@@ -64,12 +64,14 @@ public abstract class ApptSQL {
             ps.setInt(9, custId);
             ps.setInt(10, userId);
             ps.setInt(11, contactId);
+
+            return ps.executeUpdate();
         }
         catch(SQLException e) {
             e.printStackTrace();
         }
 
-        return 1;
+        return -1;
     }
 
     public static int editAppt(int apptId, String title,String description, String location, String type, LocalDateTime start, LocalDateTime end, String createBy, int custId, int userId, int contactId) {
@@ -96,6 +98,7 @@ public abstract class ApptSQL {
             e.printStackTrace();
         }
 
+        return -1;
     }
 
 }
