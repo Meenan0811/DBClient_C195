@@ -77,7 +77,7 @@ public abstract class ApptSQL {
     public static int editAppt(int apptId, String title,String description, String location, String type, LocalDateTime start, LocalDateTime end, String createBy, int custId, int userId, int contactId) {
 
         try {
-            String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?. End = ?, Created_By = ?, Last_Update = now(), Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
+            String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Created_By = ?, Last_Update = now(), Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
             ps.setString(1, title);
             ps.setString(2, description);
