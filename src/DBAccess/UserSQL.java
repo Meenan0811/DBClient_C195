@@ -13,7 +13,7 @@ import java.sql.SQLException;
  *
  * @author Matthew Meenan
  */
-public class UserSQL {
+public abstract class UserSQL {
 
     public static ObservableList<Model.User> getUsers() {
         ObservableList<Model.User> userList = FXCollections.observableArrayList();

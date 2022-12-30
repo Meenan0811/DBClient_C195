@@ -49,9 +49,9 @@ public abstract class ApptSQL {
         return apptList;
     }
 
-    public static int addAppt(int apptId, String title,String description, String location, String type, LocalDateTime start, LocalDateTime end,int custId, int userId, int contactId) {
+    public static int addAppt(String title,String description, String location, String type, LocalDateTime start, LocalDateTime end,int custId, int userId, int contactId) {
         try {
-            String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Created_By, Customer_ID, User_ID, Contact_ID) VALUES (?, ?, ?, ?, ?, ?, now(), ?, now(), ?, ?, ?, ?)";
+            String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES (?, ?, ?, ?, ?, ?, now(), ?, now(), ?, ?, ?, ?)";
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
             ps.setString(1, title);
             ps.setString(2, description);
@@ -73,7 +73,7 @@ public abstract class ApptSQL {
 
         return -1;
     }
-
+    //FIXME: SQL error check syntaxt
     public static int editAppt(int apptId, String title,String description, String location, String type, LocalDateTime start, LocalDateTime end, String createBy, int custId, int userId, int contactId) {
 
         try {
@@ -98,6 +98,21 @@ public abstract class ApptSQL {
             e.printStackTrace();
         }
 
+        return -1;
+    }
+
+    public static int deleteAppt(int apptID) {
+        try{
+            String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
+            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+
+            ps.setInt(1, apptID);
+
+            return ps.executeUpdate();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
         return -1;
     }
 
