@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class CountriesSQL {
 
     /**
-     * Grabs information from Country table and adds to Countries object and List
+     * Passes SQL commands to database to retrieve information from Countries table and add to Countries class Object
      * @return ObservableList<Countries></Countries>
      * @author Matt Meenan
      */

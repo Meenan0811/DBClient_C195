@@ -13,11 +13,18 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
- * Contains methods to pass SQL commands to database and retrieve or update data
+ * Contains methods to pass SQL commands to database and retrieve or update data from schema appointments Appointments table
+ *
  * @author Matthew Meenan
  */
 public abstract class ApptSQL {
 
+    /**
+     * Passes SQL command to database and retrieves all data from Appointments table
+     *
+     * @author Mattthew Meenan
+     * @return
+     */
     public static ObservableList<Model.Appt> getAppts(){
         ObservableList<Model.Appt> apptList = FXCollections.observableArrayList();
 
@@ -49,6 +56,21 @@ public abstract class ApptSQL {
         return apptList;
     }
 
+    /**
+     * Passes SQL command to database and creates a new Appointment in Appointments table
+     *
+     * @param title
+     * @param description
+     * @param location
+     * @param type
+     * @param start
+     * @param end
+     * @param custId
+     * @param userId
+     * @param contactId
+     * @return integer
+     */
+
     public static int addAppt(String title,String description, String location, String type, LocalDateTime start, LocalDateTime end,int custId, int userId, int contactId) {
         try {
             String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES (?, ?, ?, ?, ?, ?, now(), ?, now(), ?, ?, ?, ?)";
@@ -73,7 +95,25 @@ public abstract class ApptSQL {
 
         return -1;
     }
-    //FIXME: SQL error check syntaxt
+
+    /**
+     * Passes SQL command to update existing Appointment in Appointments table
+     *
+     * @param apptId
+     * @param title
+     * @param description
+     * @param location
+     * @param type
+     * @param start
+     * @param end
+     * @param createBy
+     * @param custId
+     * @param userId
+     * @param contactId
+     * @return integer
+     *
+     * @author Matthew Meenan
+     */
     public static int editAppt(int apptId, String title,String description, String location, String type, LocalDateTime start, LocalDateTime end, String createBy, int custId, int userId, int contactId) {
 
         try {
@@ -101,6 +141,13 @@ public abstract class ApptSQL {
         return -1;
     }
 
+    /**
+     * Passes SQL command to database to delete Appointment based off of Appointment ID from Appointments table
+     *
+     * @param apptID
+     * @return integer
+     * @author Matthew Meenan
+     */
     public static int deleteAppt(int apptID) {
         try{
             String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
