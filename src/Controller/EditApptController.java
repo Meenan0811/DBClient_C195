@@ -5,6 +5,7 @@ import DBAccess.CustomerSQL;
 import Model.Appt;
 import Model.Customers;
 import helper.Scenes;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -12,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,18 +40,45 @@ public class EditApptController implements Initializable {
     public TextField userIdText;
     public Button saveButton;
     public Button cancelButton;
+    private String custName;
     private Appt appt = Appt.class.cast(passAppt);
     private ObservableList<Appt> apptList = ApptSQL.getAppts();
     private ObservableList<Customers> custList = CustomerSQL.getAllCust();
+    private ObservableList<String> names = FXCollections.observableArrayList();
+    private ObservableList<Integer> hours = FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);
+    private ObservableList<Integer> minutes = FXCollections.observableArrayList(00, 15, 30 ,45);
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        for (Customers c : custList) {
+            String name = c.getName();
+            names.add(name);
+        }
+        for (Customers c : custList) {
+            int tempId = c.getCustId();
+            int tempAId = appt.getCustId();
+                if (tempId == tempAId) {
+                    custName = c.getName();
+                }
+            }
+        System.out.println(custName);
+
+        //FIXME: Add SetValue based on Customer ID passed
         custNameCombo.setItems(custList);
-        custNameCombo.setValue(custList.get(1).getName());
+        custNameCombo.getSelectionModel().select(custName);
 
         startDate.setValue(appt.getStart().toLocalDate());
+        startHrCombo.setItems(hours);
+        startMinCombo.setItems(minutes);
         endDate.setValue(appt.getEnd().toLocalDate());
+        endHrCombo.setItems(hours);
+        endMinCombo.setItems(minutes);
+        titleText.setText(appt.getTitle());
+        descriptionText.setText(appt.getDescription());
+        locationText.setText(appt.getLocation());
+        typeText.setText(appt.getType());
+        userIdText.setText(Integer.toString(appt.getUserId()));
 
     }
 
