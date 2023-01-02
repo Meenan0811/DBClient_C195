@@ -12,5 +12,11 @@ public abstract class Alerts {
             alert.setHeaderText("Login Incomplete");
             alert.showAndWait();
         }
+        if(code == 2) {
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setContentText("Please select a Appointment to Edit");
+            alert.setHeaderText("Warning");
+            alert.showAndWait();
+        }
     }
 }

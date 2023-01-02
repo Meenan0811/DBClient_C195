@@ -1,5 +1,6 @@
 package Model;
 
+import DBAccess.FLDivisionSQL;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,6 +18,7 @@ public class Customers {
     private String updateBy;
     private int divId;
     private String state;
+    private ObservableList<FLDivision> flDivList = FXCollections.observableArrayList();
 
     public Customers(int custId, String name, String address, String postal, String phone,LocalDateTime createDate, String createBy,LocalDateTime lastUpdate, String updateBy, int divId) {
         this.custId = custId;
@@ -72,6 +74,19 @@ public class Customers {
     public String getUpdateBy() { return this.updateBy; }
 
     public int getDivId() { return this.divId; }
+
+    public String geState(int divId) {
+        int temp;
+        flDivList = FLDivisionSQL.getAllFl();
+        for (FLDivision f : flDivList) {
+            temp = f.getDivId();
+            if (divId == temp) {
+                this.state = f.getDiv();
+            }
+        }
+
+        return state;
+    }
 
 
 }

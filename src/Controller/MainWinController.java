@@ -4,6 +4,7 @@ import DBAccess.ApptSQL;
 import DBAccess.CustomerSQL;
 import Model.Appt;
 import Model.Customers;
+import helper.Alerts;
 import helper.Scenes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -91,12 +92,14 @@ public class MainWinController implements Initializable {
     private ObservableList<Appt> allAppt = FXCollections.observableArrayList();
     private ObservableList<Appt> tempAppt = FXCollections.observableArrayList();
 
+    public static Object passAppt;
+    public static Customers passCust;
+    public static int indexNum;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        allSelected();
         allAppt = ApptSQL.getAppts();
-
-
+        allSelected();
     }
 
     @FXML
@@ -118,17 +121,7 @@ public class MainWinController implements Initializable {
                 tempAppt.add(a);
             }
         }
-        apptTable.setItems(tempAppt);
-        apptIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("apptId"));
-        titleCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("title"));
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("description"));
-        locCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("location"));
-        contactCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("contactId"));
-        typeCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("type"));
-        startCol.setCellValueFactory(new PropertyValueFactory<Appt, LocalDateTime>("start"));
-        endCol.setCellValueFactory(new PropertyValueFactory<Appt, LocalDateTime>("end"));
-        apptCustIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("custId"));
-        userIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("userId"));
+        setApptTable(tempAppt);
     }
 
     /**
@@ -147,24 +140,11 @@ public class MainWinController implements Initializable {
 
         for(Appt a : allAppt) {
             date = a.getStart().toLocalDate();
-
-            System.out.println("Date Obtained: " + date + " +7 Days: " + date.plusDays(7));
             if (date.equals(currDate) || date.isAfter(currDate) && date.isBefore(currDate.plusDays(7))) {
                 tempAppt.add(a);
-                System.out.println("Date Added: " + date);
             }
         }
-        apptTable.setItems(tempAppt);
-        apptIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("apptId"));
-        titleCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("title"));
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("description"));
-        locCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("location"));
-        contactCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("contactId"));
-        typeCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("type"));
-        startCol.setCellValueFactory(new PropertyValueFactory<Appt, LocalDateTime>("start"));
-        endCol.setCellValueFactory(new PropertyValueFactory<Appt, LocalDateTime>("end"));
-        apptCustIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("custId"));
-        userIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("userId"));
+        setApptTable(tempAppt);
     }
 
     @FXML
@@ -173,17 +153,7 @@ public class MainWinController implements Initializable {
         weekRadio.setSelected(false);
         allRadio.setSelected(true);
 
-        apptTable.setItems(ApptSQL.getAppts());
-        apptIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("apptId"));
-        titleCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("title"));
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("description"));
-        locCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("location"));
-        contactCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("contactId"));
-        typeCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("type"));
-        startCol.setCellValueFactory(new PropertyValueFactory<Appt, LocalDateTime>("start"));
-        endCol.setCellValueFactory(new PropertyValueFactory<Appt, LocalDateTime>("end"));
-        apptCustIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("custId"));
-        userIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("userId"));
+        setApptTable(allAppt);
 
         custTable.setItems(CustomerSQL.getAllCust());
         custIdCol.setCellValueFactory(new PropertyValueFactory<Customers, Integer>("custId"));
@@ -193,6 +163,20 @@ public class MainWinController implements Initializable {
         divIdCol.setCellValueFactory(new PropertyValueFactory<Customers, Integer>("divId"));
         postalCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("postal"));
 
+    }
+
+    public void setApptTable(ObservableList<Appt> appt) {
+        apptTable.setItems(appt);
+        apptIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("apptId"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("title"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("description"));
+        locCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("location"));
+        contactCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("contactId"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("type"));
+        startCol.setCellValueFactory(new PropertyValueFactory<Appt, LocalDateTime>("start"));
+        endCol.setCellValueFactory(new PropertyValueFactory<Appt, LocalDateTime>("end"));
+        apptCustIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("custId"));
+        userIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("userId"));
     }
 
 
@@ -206,7 +190,15 @@ public class MainWinController implements Initializable {
     }
 
     public void toEditAppt(ActionEvent event) throws IOException {
-        Scenes.toEditAppt(event);
+        ObservableList<Appt> apptList = ApptSQL.getAppts();
+        passAppt = apptTable.getSelectionModel().getSelectedItem();
+        if(passAppt != null) {
+            Scenes.toEditAppt(event);
+        }
+        else {
+            Alerts.alertMessage(2);
+        }
+
     }
 
     public void toAddCust(ActionEvent event) throws IOException {
