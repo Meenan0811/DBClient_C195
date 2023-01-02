@@ -1,9 +1,7 @@
 package DBAccess;
 
 import Model.Customers;
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import helper.JDBC;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,7 +15,7 @@ import java.time.LocalDateTime;
  *
  * @author Matthew Meenan
  */
-public class CustomerSQL {
+public abstract class CustomerSQL {
 
     /**
      * Passes SQL command to database to retrieve all data from Customers table and add to Customers class object

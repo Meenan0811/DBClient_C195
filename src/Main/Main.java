@@ -59,8 +59,8 @@ public class Main extends Application {
             System.out.println("ID: " + c.getCustId() + " Name: " + c.getName() + " Address: " + c.getAddress() + " Postal: " + c.getPostal() + " \nPhone: " + c.getPhone() + " Created on: " + c.getCreateDate() + " By: " + c.getCreateBy()
             + " \nUpdate on: " + c.getLastUpdate() + " By: " + c.getUpdateBy() + " Div ID: " + c.getDivId());
         }*/
-        LocalDateTime dateStart = LocalDateTime.of(2023, 12, 11, 16, 30);
-        LocalDateTime dateEnd = LocalDateTime.of(2023, 12, 14, 12, 00);
+        LocalDateTime dateStart = LocalDateTime.of(2023, 01, 10, 16, 30);
+        LocalDateTime dateEnd = LocalDateTime.of(2023, 02, 14, 12, 00);
         /*int add = ApptSQL.addAppt("new", "new", "new", "new", dateStart, dateEnd, 1, 1, 1 );
         System.out.println(add + " rows added");*/
         /*int edit = ApptSQL.editAppt(6, "update", "worked?", "here", "Worthless", dateStart, dateEnd, "new guy", 2, 2, 2);

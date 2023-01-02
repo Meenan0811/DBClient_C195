@@ -1,5 +1,8 @@
 package Model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.time.LocalDateTime;
 
 public class Customers {
@@ -13,6 +16,7 @@ public class Customers {
     private LocalDateTime lastUpdate;
     private String updateBy;
     private int divId;
+    private String state;
 
     public Customers(int custId, String name, String address, String postal, String phone,LocalDateTime createDate, String createBy,LocalDateTime lastUpdate, String updateBy, int divId) {
         this.custId = custId;

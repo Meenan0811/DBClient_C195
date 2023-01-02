@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CountriesSQL {
+public abstract class CountriesSQL {
 
     /**
      * Passes SQL commands to database to retrieve information from Countries table and add to Countries class Object
