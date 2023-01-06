@@ -93,13 +93,20 @@ public class MainWinController implements Initializable {
     private ObservableList<Appt> tempAppt = FXCollections.observableArrayList();
 
     public static Object passAppt;
-    public static Customers passCust;
-    public static int indexNum;
+    public static Object passCust;
+    public static int indexNum; //FIXME: Unused delete me??
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         allAppt = ApptSQL.getAppts();
         allSelected();
+        custTable.setItems(CustomerSQL.getAllCust());
+        custIdCol.setCellValueFactory(new PropertyValueFactory<Customers, Integer>("custId"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("name"));
+        phoneCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("phone"));
+        addressCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("address"));
+        divIdCol.setCellValueFactory(new PropertyValueFactory<Customers, Integer>("divId"));
+        postalCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("postal"));
     }
 
     @FXML
@@ -154,15 +161,6 @@ public class MainWinController implements Initializable {
         allRadio.setSelected(true);
 
         setApptTable(allAppt);
-
-        custTable.setItems(CustomerSQL.getAllCust());
-        custIdCol.setCellValueFactory(new PropertyValueFactory<Customers, Integer>("custId"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("name"));
-        phoneCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("phone"));
-        addressCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("address"));
-        divIdCol.setCellValueFactory(new PropertyValueFactory<Customers, Integer>("divId"));
-        postalCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("postal"));
-
     }
 
     public void setApptTable(ObservableList<Appt> appt) {
@@ -190,7 +188,7 @@ public class MainWinController implements Initializable {
     }
 
     public void toEditAppt(ActionEvent event) throws IOException {
-        ObservableList<Appt> apptList = ApptSQL.getAppts();
+        //ObservableList<Appt> apptList = ApptSQL.getAppts(); //FIXME: Delete Me
         passAppt = apptTable.getSelectionModel().getSelectedItem();
         if(passAppt != null) {
             Scenes.toEditAppt(event);
@@ -206,7 +204,13 @@ public class MainWinController implements Initializable {
     }
 
     public void toEditCust(ActionEvent event) throws IOException {
-        Scenes.toEditCust(event);
+        passCust = custTable.getSelectionModel().getSelectedItem();
+        if(passCust != null) {
+            Scenes.toEditCust(event);
+        }
+        else {
+            Alerts.alertMessage(3);
+        }
     }
 
     public void toReport(ActionEvent event) throws IOException {

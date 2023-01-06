@@ -18,5 +18,11 @@ public abstract class Alerts {
             alert.setHeaderText("Warning");
             alert.showAndWait();
         }
+        if(code == 3) {
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setContentText("Please select a Customer to Edit");
+            alert.setHeaderText("Warning");
+            alert.showAndWait();
+        }
     }
 }

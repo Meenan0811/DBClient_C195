@@ -41,12 +41,12 @@ public class EditApptController implements Initializable {
     public Button saveButton;
     public Button cancelButton;
     private String custName;
-    private Appt appt = Appt.class.cast(passAppt);
-    private ObservableList<Appt> apptList = ApptSQL.getAppts();
-    private ObservableList<Customers> custList = CustomerSQL.getAllCust();
+    private final Appt appt = Appt.class.cast(passAppt); //FIXME: CAn I do this without casting??
+    private final ObservableList<Appt> apptList = ApptSQL.getAppts();
+    private final ObservableList<Customers> custList = CustomerSQL.getAllCust();
     private ObservableList<String> names = FXCollections.observableArrayList();
-    private ObservableList<Integer> hours = FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);
-    private ObservableList<Integer> minutes = FXCollections.observableArrayList(00, 15, 30 ,45);
+    private final ObservableList<Integer> hours = FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);
+    private final ObservableList<Integer> minutes = FXCollections.observableArrayList(00, 15, 30 ,45);
 
 
     @Override
