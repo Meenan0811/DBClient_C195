@@ -65,15 +65,18 @@ public class EditApptController implements Initializable {
         System.out.println(custName);
 
         //FIXME: Add SetValue based on Customer ID passed
-        custNameCombo.setItems(custList);
+        custNameCombo.setItems(names);
         custNameCombo.getSelectionModel().select(custName);
-
         startDate.setValue(appt.getStart().toLocalDate());
         startHrCombo.setItems(hours);
+        startHrCombo.setValue(appt.getStart().toLocalTime().getHour());
         startMinCombo.setItems(minutes);
+        startMinCombo.setValue(appt.getStart().toLocalTime().getMinute());
         endDate.setValue(appt.getEnd().toLocalDate());
         endHrCombo.setItems(hours);
+        endHrCombo.setValue(appt.getEnd().toLocalTime().getHour());
         endMinCombo.setItems(minutes);
+        endMinCombo.setValue(appt.getEnd().toLocalTime().getMinute());
         titleText.setText(appt.getTitle());
         descriptionText.setText(appt.getDescription());
         locationText.setText(appt.getLocation());
