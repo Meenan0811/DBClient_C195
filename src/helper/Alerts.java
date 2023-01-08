@@ -24,5 +24,11 @@ public abstract class Alerts {
             alert.setHeaderText("Warning");
             alert.showAndWait();
         }
+        if(code == 4) {
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setContentText("Please ensure all fields are filled out with Appropriate values");
+            alert.setHeaderText("Missing or Incorrect Fields");
+            alert.showAndWait();
+        }
     }
 }

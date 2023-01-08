@@ -4,6 +4,7 @@ import DBAccess.ApptSQL;
 import DBAccess.CustomerSQL;
 import Model.Appt;
 import Model.Customers;
+import helper.Alerts;
 import helper.Scenes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import static Controller.MainWinController.passAppt;
@@ -64,7 +66,7 @@ public class EditApptController implements Initializable {
             }
         System.out.println(custName);
 
-        //FIXME: Add SetValue based on Customer ID passed
+
         custNameCombo.setItems(names);
         custNameCombo.getSelectionModel().select(custName);
         startDate.setValue(appt.getStart().toLocalDate());
@@ -99,6 +101,33 @@ public class EditApptController implements Initializable {
      * @param event
      */
     public void saveEditAppt(ActionEvent event) {
+        Appt appt = null;
+        //FIXME: NOt validating String fields are populated
+
+        try {
+            String name = custNameCombo.getValue().toString();
+            LocalDate start = startDate.getValue();
+            int startHour = Integer.parseInt(startHrCombo.getValue().toString());
+            int startMin = Integer.parseInt(startMinCombo.getValue().toString());
+            LocalDate end = endDate.getValue();
+            int endHour = Integer.parseInt(endHrCombo.getValue().toString());
+            int endMin = Integer.parseInt(endMinCombo.getValue().toString());
+            String title = titleText.getText();
+            String description = descriptionText.getText();
+            String location = locationText.getText();
+            String type = typeText.getText();
+            int userId = Integer.parseInt(userIdText.getText());
+
+            if(title.isEmpty()) {
+                Alerts.alertMessage(4);
+            }
+
+            System.out.println(name + " " + start + " " + startHour + " " + startMin + " " + location + " " + userId);
+        } catch (Exception n) {
+            Alerts.alertMessage(4);
+        }
+
+
     }
 
 
