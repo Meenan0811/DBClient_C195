@@ -98,6 +98,7 @@ public class MainWinController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         allAppt = ApptSQL.getAppts();
         allSelected();
         custTable.setItems(CustomerSQL.getAllCust());
@@ -107,6 +108,8 @@ public class MainWinController implements Initializable {
         addressCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("address"));
         divIdCol.setCellValueFactory(new PropertyValueFactory<Customers, Integer>("divId"));
         postalCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("postal"));
+
+
     }
 
     @FXML

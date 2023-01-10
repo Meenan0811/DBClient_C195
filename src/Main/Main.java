@@ -19,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -78,9 +79,12 @@ public class Main extends Application {
                 System.out.println(zoneId);
             }
         }*/
-        LocalDateTime utcTime = TimeZones.toUtc(dateStart);
+        LocalDateTime current = LocalDateTime.now();
+        LocalDateTime utcTime = TimeZones.toUtc(current);
         LocalDateTime localT = TimeZones.toLocal(utcTime);
-        System.out.println("Local Date and Time: " + dateStart + "\n UTC: " + utcTime + "\nBack To Local: " + localT);
+
+        System.out.println("\nCurrent: " + current + "\nLocal Date and Time: " + dateStart + "\n UTC: " + utcTime + "\nBack To Local: " + localT + " \nEST: " + TimeZones.toEST(utcTime)
+        );
 
 
 

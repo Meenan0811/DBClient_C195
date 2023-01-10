@@ -35,6 +35,18 @@ public abstract class Alerts {
             alert.setHeaderText("Missing or Incorrect Fields");
             alert.showAndWait();
         }
+        if(code==5) {
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setHeaderText("Outside of business hours");
+            alert.setContentText("Please ensure that the start and end times are within business hours (8am - 10pm EST)");
+            alert.showAndWait();
+        }
+        if(code==6) {
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setHeaderText("Check Start and End times");
+            alert.setContentText("Start time must be before End Time");
+            alert.showAndWait();
+        }
     }
 
     public static void deleteAlert(Appt appt) {
@@ -55,6 +67,20 @@ public abstract class Alerts {
             error.setContentText("Please select an Appointment to delete");
             error.setHeaderText("Delete Appointment");
             error.showAndWait();
+        }
+    }
+
+    public static void upcomingAppt(int apptId) {
+        if (apptId > -1) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("Upcoming Appointment");
+            alert.setContentText("Appointment ID: " + apptId + " begins soon");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("No Upcoming appointments");
+            alert.setContentText("No appointments within the next 15 minutes");
+            alert.showAndWait();
         }
     }
 }

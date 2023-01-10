@@ -119,15 +119,17 @@ public class EditApptController implements Initializable {
             String type = typeText.getText();
             int userId = Integer.parseInt(userIdText.getText());
             int apptId = appt.getApptId();
-            String createBy = appt.getCreateBy();
             int contactId = appt.getContactId();
             int custId = appt.getCustId();
 
             if(title.isEmpty() || description.isEmpty() || location.isEmpty() || type.isEmpty()) {
                 Alerts.alertMessage(4);
             }
+            if(!Appt.verifyDateTime(startDate, endDate)) {
+
+            }
             else {
-                ApptSQL.editAppt(apptId, title, description, location, type, startDate, endDate, createBy, custId, userId, contactId);
+                ApptSQL.editAppt(apptId, title, description, location, type, startDate, endDate, LoginController.currUser, custId, userId, contactId);
                 toMain(event);
             }
         } catch (NumberFormatException n) {

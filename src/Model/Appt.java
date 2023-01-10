@@ -1,7 +1,11 @@
 package Model;
 
+import DBAccess.ApptSQL;
+import helper.Alerts;
+import helper.TimeZones;
+import javafx.collections.ObservableList;
+
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -81,15 +85,54 @@ public class Appt {
 
     //FIXME: Add code to verify that date and time are withing operating hours on east coast
     /**
-     * Verify that date and time passed are within operating hours
+     * Verify that date and time passed are within operating hours and appointment starts before appointment end time
      * @param start
      * @param end
      */
-    public void verifyDateTime(LocalDateTime start, LocalDateTime end) {
-        DayOfWeek startDay = start.toLocalDate().getDayOfWeek();
-        LocalTime startTime = start.toLocalTime();
-        DayOfWeek endDay = end.toLocalDate().getDayOfWeek();
-        LocalTime endTime = end.toLocalTime();
+    public static boolean verifyDateTime(LocalDateTime start, LocalDateTime end) {
+        boolean range;
+        LocalDateTime estStartDT = TimeZones.toEST(start);
+        LocalDateTime estEndDT = TimeZones.toEST(end);
+        LocalTime estStart = estStartDT.toLocalTime();
+        LocalTime estEnd = estEndDT.toLocalTime();
+        System.out.println("Local Time: " + start + "\nLocal end Time: " + end + "\nEST Start: " + estStart + "\nEST End: " + estEnd);
+        LocalTime open = LocalTime.of(8, 00);
+        LocalTime close = LocalTime.of(20, 00);
+        if (estStart.isBefore(open) || estStart.isAfter(close) || estEnd.isBefore(open) || estEnd.isAfter(close)) {
+            Alerts.alertMessage(5);
+            range = false;
+            return range;
+        }
+        if (start.isAfter(end) || end.isBefore(start)) {
+            Alerts.alertMessage(6);
+            range = false;
+            return range;
+        } else {
+            range = true;
+        }
+    return range;
+
+
+    }
+
+    /**
+     * Checks all appointment times, if appointment is witihin 15 minutes of the current time the user will receive an alert with the appointment ID. If no matching appointment is found the user receives an alert
+     *
+     */
+    public static void immediateAppt() {
+        LocalDateTime current = LocalDateTime.now();
+        ObservableList<Appt> appts = ApptSQL.getAppts();
+        int apptId = -1;
+        for (Appt a : appts) {
+            LocalDateTime startTime = a.getStart();
+            if(startTime.isEqual(current) || startTime.isAfter(current) && startTime.isBefore(current.plusMinutes(16))) {
+                apptId = a.getApptId();
+                Alerts.upcomingAppt(apptId);
+            }
+        }
+        if (apptId == -1) {
+            Alerts.upcomingAppt(apptId);
+        }
     }
 
 }

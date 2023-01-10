@@ -1,6 +1,7 @@
 package Controller;
 
 import DBAccess.UserSQL;
+import Model.Appt;
 import Model.User;
 import helper.Alerts;
 import helper.Scenes;
@@ -70,6 +71,7 @@ public class LoginController implements Initializable {
                 valid = true;
 
                 Scenes.toMain(actionEvent);
+                Appt.immediateAppt();
                 break;
             }
         }

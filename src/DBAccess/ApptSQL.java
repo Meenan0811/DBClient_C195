@@ -3,6 +3,7 @@ package DBAccess;
 import Controller.LoginController;
 import Model.Appt;
 import helper.JDBC;
+import helper.TimeZones;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -39,8 +40,8 @@ public abstract class ApptSQL {
                 String descr = rs.getString("Description");
                 String loc = rs.getString("Location");
                 String type = rs.getString("Type");
-                LocalDateTime start = rs.getTimestamp("Start").toLocalDateTime();
-                LocalDateTime end = rs.getTimestamp("End").toLocalDateTime();
+                LocalDateTime start = (rs.getTimestamp("Start").toLocalDateTime());
+                LocalDateTime end = (rs.getTimestamp("End").toLocalDateTime());
                 String createBy = rs.getString("Created_By");
                 int custId = rs.getInt("Customer_ID");
                 int userId = rs.getInt("User_ID");
@@ -72,6 +73,9 @@ public abstract class ApptSQL {
      */
 
     public static int addAppt(String title,String description, String location, String type, LocalDateTime start, LocalDateTime end,int custId, int userId, int contactId) {
+        LocalDateTime startUTC = TimeZones.toUtc(start);
+        LocalDateTime endUTC = TimeZones.toUtc(end);
+
         try {
             String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES (?, ?, ?, ?, ?, ?, now(), ?, now(), ?, ?, ?, ?)";
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
@@ -106,7 +110,7 @@ public abstract class ApptSQL {
      * @param type
      * @param start
      * @param end
-     * @param createBy
+     * @param lastUpdateBy
      * @param custId
      * @param userId
      * @param contactId
@@ -114,10 +118,13 @@ public abstract class ApptSQL {
      *
      * @author Matthew Meenan
      */
-    public static int editAppt(int apptId, String title,String description, String location, String type, LocalDateTime start, LocalDateTime end, String createBy, int custId, int userId, int contactId) {
+    public static int editAppt(int apptId, String title,String description, String location, String type, LocalDateTime start, LocalDateTime end, String lastUpdateBy, int custId, int userId, int contactId) {
+        LocalDateTime startUTC = TimeZones.toUtc(start);
+        LocalDateTime endUTC = TimeZones.toUtc(end);
+        System.out.println("Start Time: " + start + "\nEnd Time: " + end);
 
         try {
-            String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Created_By = ?, Last_Update = now(), Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
+            String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Last_Update = now(), Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
             ps.setString(1, title);
             ps.setString(2, description);
@@ -125,7 +132,7 @@ public abstract class ApptSQL {
             ps.setString(4,type);
             ps.setTimestamp(5, Timestamp.valueOf(start));
             ps.setTimestamp(6, Timestamp.valueOf(end));
-            ps.setString(7, createBy);
+            ps.setString(7, lastUpdateBy);
             ps.setInt(8, custId);
             ps.setInt(9, userId);
             ps.setInt(10, contactId);

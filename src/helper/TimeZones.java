@@ -1,24 +1,39 @@
 package helper;
 
-import java.time.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public abstract class TimeZones {
+    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
 
     public static LocalDateTime toUtc(LocalDateTime dateTime) {
-        ZoneId zId = ZoneId.systemDefault();
-        ZonedDateTime zLocal = ZonedDateTime.ofLocal(dateTime, zId, ZoneOffset.UTC);
-        ZonedDateTime zUtc = zLocal.withZoneSameInstant(ZoneId.of("UTC"));
+        ZoneId localId = ZoneId.systemDefault();
+        ZoneId utcId = ZoneId.of("UTC");
+
+        ZonedDateTime zLocal = dateTime.atZone(localId);
+        ZonedDateTime zUtc = zLocal.withZoneSameInstant(utcId);
         LocalDateTime lUtc = zUtc.toLocalDateTime();
+
 
         return lUtc;
     }
 
     public static  LocalDateTime toLocal(LocalDateTime dateTime) {
-        ZoneId zId = ZoneId.systemDefault();
         ZonedDateTime zOut = dateTime.atZone(ZoneId.of("UTC"));
-        ZonedDateTime zLocal = zOut.withZoneSameInstant(ZoneId.systemDefault());
-        LocalDateTime local = zLocal.toLocalDateTime();
+        LocalDateTime zLocal = zOut.withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
+        //LocalDateTime local = zLocal.toLocalDateTime();
 
-        return local;
+        return zLocal;
+    }
+
+    public static LocalDateTime toEST(LocalDateTime dateTime) {
+        ZonedDateTime zUtc = dateTime.atZone(ZoneId.of("UTC"));
+        ZonedDateTime zEst = zUtc.withZoneSameInstant(ZoneId.of("US/Eastern"));
+        LocalDateTime lEst = zEst.toLocalDateTime();
+        System.out.println(zUtc + "\n" + zEst + "\n" + lEst);
+
+        return lEst;
     }
 }
