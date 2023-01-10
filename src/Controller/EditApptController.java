@@ -18,6 +18,8 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 import static Controller.MainWinController.passAppt;
@@ -43,7 +45,7 @@ public class EditApptController implements Initializable {
     public Button saveButton;
     public Button cancelButton;
     private String custName;
-    private final Appt appt = Appt.class.cast(passAppt); //FIXME: CAn I do this without casting??
+    private final Appt appt = Appt.class.cast(passAppt);
     private final ObservableList<Appt> apptList = ApptSQL.getAppts();
     private final ObservableList<Customers> custList = CustomerSQL.getAllCust();
     private ObservableList<String> names = FXCollections.observableArrayList();
@@ -64,7 +66,7 @@ public class EditApptController implements Initializable {
                     custName = c.getName();
                 }
             }
-        System.out.println(custName);
+
 
 
         custNameCombo.setItems(names);
@@ -100,35 +102,40 @@ public class EditApptController implements Initializable {
      * Calls method to pass SQL commands and update database with provided information
      * @param event
      */
-    public void saveEditAppt(ActionEvent event) {
-        Appt appt = null;
-        //FIXME: NOt validating String fields are populated
+    public void saveEditAppt(ActionEvent event) throws IOException {
 
         try {
             String name = custNameCombo.getValue().toString();
             LocalDate start = startDate.getValue();
             int startHour = Integer.parseInt(startHrCombo.getValue().toString());
             int startMin = Integer.parseInt(startMinCombo.getValue().toString());
+            LocalTime startTime = LocalTime.of(startHour, startMin);
+            LocalDateTime startDate = LocalDateTime.of(start, startTime);
             LocalDate end = endDate.getValue();
             int endHour = Integer.parseInt(endHrCombo.getValue().toString());
             int endMin = Integer.parseInt(endMinCombo.getValue().toString());
+            LocalTime endTime = LocalTime.of(endHour, endMin);
+            LocalDateTime endDate = LocalDateTime.of(end, endTime);
             String title = titleText.getText();
             String description = descriptionText.getText();
             String location = locationText.getText();
             String type = typeText.getText();
             int userId = Integer.parseInt(userIdText.getText());
+            int apptId = appt.getApptId();
+            String createBy = appt.getCreateBy();
+            int contactId = appt.getContactId();
+            int custId = appt.getCustId();
 
-            if(title.isEmpty()) {
+            if(title.isEmpty() || description.isEmpty() || location.isEmpty() || type.isEmpty()) {
                 Alerts.alertMessage(4);
             }
-
-            System.out.println(name + " " + start + " " + startHour + " " + startMin + " " + location + " " + userId);
-        } catch (Exception n) {
+            else {
+                ApptSQL.editAppt(apptId, title, description, location, type, startDate, endDate, createBy, custId, userId, contactId);
+                toMain(event);
+            }
+        } catch (NumberFormatException n) {
             Alerts.alertMessage(4);
         }
-
-
     }
-
 
 }

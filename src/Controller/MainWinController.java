@@ -11,10 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -22,6 +19,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -188,7 +186,6 @@ public class MainWinController implements Initializable {
     }
 
     public void toEditAppt(ActionEvent event) throws IOException {
-        //ObservableList<Appt> apptList = ApptSQL.getAppts(); //FIXME: Delete Me
         passAppt = apptTable.getSelectionModel().getSelectedItem();
         if(passAppt != null) {
             Scenes.toEditAppt(event);
@@ -196,6 +193,12 @@ public class MainWinController implements Initializable {
         else {
             Alerts.alertMessage(2);
         }
+    }
+
+    public void deleteAppt(ActionEvent event) throws IOException {
+        Appt appt = Appt.class.cast(apptTable.getSelectionModel().getSelectedItem());
+        Alerts.deleteAlert(appt);
+        Scenes.toMain(event);
 
     }
 
