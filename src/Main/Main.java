@@ -10,6 +10,7 @@ import Model.Contacts;
 import Model.Customers;
 import Model.FLDivision;
 import helper.JDBC;
+import helper.TimeZones;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +20,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.time.ZoneId;
+import java.util.*;
 
 
 public class Main extends Application {
@@ -60,7 +62,7 @@ public class Main extends Application {
             + " \nUpdate on: " + c.getLastUpdate() + " By: " + c.getUpdateBy() + " Div ID: " + c.getDivId());
         }*/
         LocalDateTime dateStart = LocalDateTime.of(2023, 01, 10, 16, 30);
-        LocalDateTime dateEnd = LocalDateTime.of(2023, 02, 14, 12, 00);
+        //LocalDateTime dateEnd = LocalDateTime.of(2023, 02, 14, 12, 00);
         /*int add = ApptSQL.addAppt("new", "new", "new", "new", dateStart, dateEnd, 1, 1, 1 );
         System.out.println(add + " rows added");*/
         /*int edit = ApptSQL.editAppt(6, "update", "worked?", "here", "Worthless", dateStart, dateEnd, "new guy", 2, 2, 2);
@@ -68,11 +70,23 @@ public class Main extends Application {
         //int addCustomer = CustomerSQL.editCust(4, "Betty P", "123 Updated", "0", "(609) 000-0001", "Betty P",  2);
         //int deleteCust = CustomerSQL.deleteCust(4);
 
+        /*Set<String> zoneIds = ZoneId.getAvailableZoneIds();
+        List<String> zoneList = new ArrayList<String>(zoneIds);
+        Collections.sort(zoneList);
+        for (String zoneId : zoneList) {
+            if (zoneId.contains("US")) {
+                System.out.println(zoneId);
+            }
+        }*/
+        LocalDateTime utcTime = TimeZones.toUtc(dateStart);
+        LocalDateTime localT = TimeZones.toLocal(utcTime);
+        System.out.println("Local Date and Time: " + dateStart + "\n UTC: " + utcTime + "\nBack To Local: " + localT);
+
 
 
 
         //System.out.println(deleteCust + " rows deleted");
-        System.out.println(LoginController.currUser);
+        //System.out.println(LoginController.currUser);
 
 
 

@@ -11,7 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -19,11 +22,10 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
- *MainWindow controller, populates Appointemnt and customer windows. Passes selected data from Main Controller to next screen
+ *MainWindow controller, populates Appointment and customer windows. Passes selected data from Main Controller to next screen
  *
  * @author Matt Meenan
  */
@@ -184,6 +186,12 @@ public class MainWinController implements Initializable {
     public void toAddAppt(ActionEvent event) throws IOException {
         Scenes.toAddAppt(event);
     }
+
+    /**
+     * Call Edit Appointment screen and passes selected Appointment
+     * @param event
+     * @throws IOException
+     */
 
     public void toEditAppt(ActionEvent event) throws IOException {
         passAppt = apptTable.getSelectionModel().getSelectedItem();

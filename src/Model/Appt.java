@@ -1,6 +1,9 @@
 package Model;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Appt {
     private int apptId;
@@ -74,5 +77,19 @@ public class Appt {
     public String getType() { return this.type; }
 
     public String getCreateBy() { return this.createBy; }
+
+
+    //FIXME: Add code to verify that date and time are withing operating hours on east coast
+    /**
+     * Verify that date and time passed are within operating hours
+     * @param start
+     * @param end
+     */
+    public void verifyDateTime(LocalDateTime start, LocalDateTime end) {
+        DayOfWeek startDay = start.toLocalDate().getDayOfWeek();
+        LocalTime startTime = start.toLocalTime();
+        DayOfWeek endDay = end.toLocalDate().getDayOfWeek();
+        LocalTime endTime = end.toLocalTime();
+    }
 
 }

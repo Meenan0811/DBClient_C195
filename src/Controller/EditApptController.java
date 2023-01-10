@@ -17,9 +17,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.ResourceBundle;
 
 import static Controller.MainWinController.passAppt;
@@ -86,7 +84,6 @@ public class EditApptController implements Initializable {
         locationText.setText(appt.getLocation());
         typeText.setText(appt.getType());
         userIdText.setText(Integer.toString(appt.getUserId()));
-
     }
 
     /**

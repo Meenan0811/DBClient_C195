@@ -59,7 +59,8 @@ public class LoginController implements Initializable {
         String pass = passWordPassField.getText();
         ObservableList<Model.User> userList = UserSQL.getUsers();
         boolean valid = false;
-        currUser = userName;
+        this.currUser = userName;
+
 
         for(User u: userList) {
             String tempU = u.getUserName();
