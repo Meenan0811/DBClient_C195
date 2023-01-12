@@ -23,10 +23,12 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.stream.Stream;
 
+/**
+ *
+ * @author Matthew Meenan
+ */
 public class AddApptController implements Initializable {
     public ComboBox custNameCombo;
     @FXML
@@ -57,6 +59,7 @@ public class AddApptController implements Initializable {
     private Button cancelButton;
     @FXML
     private Button saveButton;
+
     private final ObservableList<Integer> hours = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23);
     private final ObservableList<Integer> minutes = FXCollections.observableArrayList(00, 15, 30, 45);
     private final ObservableList<Customers> custList = CustomerSQL.getAllCust();
@@ -64,6 +67,11 @@ public class AddApptController implements Initializable {
     private ObservableList<String> names = FXCollections.observableArrayList();
     private ObservableList<String> contact = FXCollections.observableArrayList();
 
+    /**
+     * Override Initialize method
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         for (Customers c : custList) {
@@ -75,20 +83,27 @@ public class AddApptController implements Initializable {
             contact.add(name);
         }
         custNameCombo.setItems(names);
-        Customers currcust = Customers.class.cast(custNameCombo.getSelectionModel().getSelectedItem());
+        //Customers currcust = Customers.class.cast(custNameCombo.getSelectionModel().getSelectedItem());
         userIdText.setText(Integer.toString(LoginController.currUserId));
         contactCombo.setItems(contact);
+        startHrCombo.setItems(hours);
+        startMinCombo.setItems(minutes);
+        endHrCombo.setItems(hours);
+        endMinCombo.setItems(minutes);
     }
 
     public void toMain(ActionEvent event) throws IOException {
         Scenes.toMain(event);
     }
 
-
+    /**
+     * Gathers information from Combo Boxes and Text Fields, calls ApptSQL class method addAppt to add appointment to database. Calls Appt method verifyDateRange to ensure appointment time is within business hours.
+     * @param event
+     * @throws IOException
+     */
     public void saveAppt(ActionEvent event) throws IOException {
 
         try {
-            String name = custNameCombo.getValue().toString();
             LocalDate start = startDate.getValue();
             int startHour = Integer.parseInt(startHrCombo.getValue().toString());
             int startMin = Integer.parseInt(startMinCombo.getValue().toString());
@@ -103,18 +118,19 @@ public class AddApptController implements Initializable {
             String description = descriptionText.getText();
             String location = locationText.getText();
             String type = typeText.getText();
-            int contId;
+
+            int contId = -1;
             for (Contacts c : contList) {
                 String tempName = c.getName();
-                String currName = contactCombo.getSelectionModel().toString();
+                String currName = contactCombo.getValue().toString();
                 if (currName.equals(tempName)) {
                     contId = c.getContactId();
                 }
             }
-            int custId;
+            int custId = -1;
             for (Customers c : custList) {
                 String tempName = c.getName();
-                String currName = custNameCombo.getSelectionModel().toString();
+                String currName = custNameCombo.getValue().toString();
                 if (currName.equals(tempName)) {
                     custId = c.getCustId();
                 }
@@ -136,4 +152,15 @@ public class AddApptController implements Initializable {
 
 
     }
+
+    /**
+     * Returns to Main without adding Appointment
+     * @param event
+     * @throws IOException
+     */
+    public void cancel(ActionEvent event) throws IOException {
+        toMain(event);
+    }
+
+
 }

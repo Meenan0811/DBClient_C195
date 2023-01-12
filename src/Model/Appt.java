@@ -91,13 +91,13 @@ public class Appt {
      */
     public static boolean verifyDateTime(LocalDateTime start, LocalDateTime end) {
         boolean range;
-        LocalDateTime estStartDT = TimeZones.toEST(start);
-        LocalDateTime estEndDT = TimeZones.toEST(end);
+        LocalDateTime estStartDT = TimeZones.localToEst(start);
+        LocalDateTime estEndDT = TimeZones.localToEst(end);
         LocalTime estStart = estStartDT.toLocalTime();
         LocalTime estEnd = estEndDT.toLocalTime();
         System.out.println("Local Time: " + start + "\nLocal end Time: " + end + "\nEST Start: " + estStart + "\nEST End: " + estEnd);
         LocalTime open = LocalTime.of(8, 00);
-        LocalTime close = LocalTime.of(20, 00);
+        LocalTime close = LocalTime.of(22, 00);
         if (estStart.isBefore(open) || estStart.isAfter(close) || estEnd.isBefore(open) || estEnd.isAfter(close)) {
             Alerts.alertMessage(5);
             range = false;

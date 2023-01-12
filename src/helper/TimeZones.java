@@ -36,4 +36,13 @@ public abstract class TimeZones {
 
         return lEst;
     }
+
+    public static LocalDateTime localToEst(LocalDateTime dateTime) {
+        ZonedDateTime zLoc = dateTime.atZone(ZoneId.systemDefault());
+        ZonedDateTime zEst = zLoc.withZoneSameInstant(ZoneId.of("US/Eastern"));
+        LocalDateTime lEst = zEst.toLocalDateTime();
+        System.out.println(zLoc + "\n" + zEst + "\n" + lEst);
+
+        return lEst;
+    }
 }
