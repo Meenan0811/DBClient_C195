@@ -1,11 +1,17 @@
 package Controller;
 
+import DBAccess.ApptSQL;
+import DBAccess.ContactsSQL;
 import DBAccess.CustomerSQL;
+import Model.Appt;
+import Model.Contacts;
 import Model.Customers;
+import helper.Alerts;
 import helper.Scenes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -14,27 +20,49 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
 
 public class AddApptController implements Initializable {
     public ComboBox custNameCombo;
-    public DatePicker startDate;
-    public DatePicker endDate;
-    public ComboBox endHrCombo;
-    public ComboBox endMinCombo;
-    public ComboBox startHrCombo;
-    public ComboBox startMinCombo;
-    public TextField titleText;
-    public TextField descriptionText;
-    public TextField locationText;
-    public TextField typeText;
-    public TextField userIdText;
-    public Button cancelButton;
-    public Button saveButton;
-    private final ObservableList<Integer> hours = FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);
-    private final ObservableList<Integer> minutes = FXCollections.observableArrayList(00, 15, 30 ,45);
+    @FXML
+    private ComboBox contactCombo;
+    @FXML
+    private DatePicker startDate;
+    @FXML
+    private DatePicker endDate;
+    @FXML
+    private ComboBox endHrCombo;
+    @FXML
+    private ComboBox endMinCombo;
+    @FXML
+    private ComboBox startHrCombo;
+    @FXML
+    private ComboBox startMinCombo;
+    @FXML
+    private TextField titleText;
+    @FXML
+    private TextField descriptionText;
+    @FXML
+    private TextField locationText;
+    @FXML
+    private TextField typeText;
+    @FXML
+    private TextField userIdText;
+    @FXML
+    private Button cancelButton;
+    @FXML
+    private Button saveButton;
+    private final ObservableList<Integer> hours = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23);
+    private final ObservableList<Integer> minutes = FXCollections.observableArrayList(00, 15, 30, 45);
     private final ObservableList<Customers> custList = CustomerSQL.getAllCust();
+    private final ObservableList<Contacts> contList = ContactsSQL.allContacts();
     private ObservableList<String> names = FXCollections.observableArrayList();
+    private ObservableList<String> contact = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -42,8 +70,14 @@ public class AddApptController implements Initializable {
             String name = c.getName();
             names.add(name);
         }
+        for (Contacts c : contList) {
+            String name = c.getName();
+            contact.add(name);
+        }
         custNameCombo.setItems(names);
-
+        Customers currcust = Customers.class.cast(custNameCombo.getSelectionModel().getSelectedItem());
+        userIdText.setText(Integer.toString(LoginController.currUserId));
+        contactCombo.setItems(contact);
     }
 
     public void toMain(ActionEvent event) throws IOException {
@@ -51,8 +85,55 @@ public class AddApptController implements Initializable {
     }
 
 
-    public void saveAppt(ActionEvent event) {
+    public void saveAppt(ActionEvent event) throws IOException {
+
+        try {
+            String name = custNameCombo.getValue().toString();
+            LocalDate start = startDate.getValue();
+            int startHour = Integer.parseInt(startHrCombo.getValue().toString());
+            int startMin = Integer.parseInt(startMinCombo.getValue().toString());
+            LocalTime startTime = LocalTime.of(startHour, startMin);
+            LocalDateTime startDate = LocalDateTime.of(start, startTime);
+            LocalDate end = endDate.getValue();
+            int endHour = Integer.parseInt(endHrCombo.getValue().toString());
+            int endMin = Integer.parseInt(endMinCombo.getValue().toString());
+            LocalTime endTime = LocalTime.of(endHour, endMin);
+            LocalDateTime endDate = LocalDateTime.of(end, endTime);
+            String title = titleText.getText();
+            String description = descriptionText.getText();
+            String location = locationText.getText();
+            String type = typeText.getText();
+            int contId;
+            for (Contacts c : contList) {
+                String tempName = c.getName();
+                String currName = contactCombo.getSelectionModel().toString();
+                if (currName.equals(tempName)) {
+                    contId = c.getContactId();
+                }
+            }
+            int custId;
+            for (Customers c : custList) {
+                String tempName = c.getName();
+                String currName = custNameCombo.getSelectionModel().toString();
+                if (currName.equals(tempName)) {
+                    custId = c.getCustId();
+                }
+            }
+
+
+            if (title.isEmpty() || description.isEmpty() || location.isEmpty() || type.isEmpty()) {
+                Alerts.alertMessage(4);
+            }
+            if (!Appt.verifyDateTime(startDate, endDate)) {
+
+            } else {
+                ApptSQL.addAppt(title, description, location, type, startDate, endDate, custId, LoginController.currUserId, contId);
+                toMain(event);
+            }
+        } catch (NumberFormatException e) {
+            Alerts.alertMessage(4);
+        }
+
+
     }
-
-
 }

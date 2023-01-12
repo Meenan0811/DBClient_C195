@@ -18,8 +18,8 @@
       <Label layoutX="85.0" layoutY="243.0" text="Start Time" />
       <Label layoutX="83.0" layoutY="311.0" text="End Time" />
       <Label layoutX="90.0" layoutY="358.0" text="Customer Name" />
-      <Label layoutX="97.0" layoutY="405.0" text="User Id" />
-      <ComboBox fx:id="custNameCombo" layoutX="232.0" layoutY="354.0" prefWidth="150.0" />
+      <Label layoutX="93.0" layoutY="455.0" text="User Id" />
+      <ComboBox fx:id="custNameCombo" layoutX="210.0" layoutY="354.0" prefWidth="150.0" />
       <DatePicker fx:id="startDate" layoutX="215.0" layoutY="207.0" />
       <DatePicker fx:id="endDate" layoutX="208.0" layoutY="277.0" />
       <ComboBox fx:id="endHrCombo" layoutX="208.0" layoutY="307.0" prefHeight="25.0" prefWidth="61.0" />
@@ -30,8 +30,10 @@
       <TextField fx:id="descriptionText" layoutX="210.0" layoutY="115.0" />
       <TextField fx:id="locationText" layoutX="210.0" layoutY="146.0" />
       <TextField fx:id="typeText" layoutX="210.0" layoutY="175.0" />
-      <TextField fx:id="userIdText" editable="false" layoutX="210.0" layoutY="401.0" />
+      <TextField fx:id="userIdText" editable="false" layoutX="211.0" layoutY="451.0" />
       <Button fx:id="saveButton" layoutX="139.0" layoutY="497.0" mnemonicParsing="false" onAction="#saveAppt" text="Save" />
       <Button fx:id="cancelButton" layoutX="327.0" layoutY="497.0" mnemonicParsing="false" onAction="#toMain" text="Cancel" />
+      <Label layoutX="83.0" layoutY="401.0" text="Contact Name" />
+      <ComboBox fx:id="contactCombo" layoutX="209.0" layoutY="397.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
