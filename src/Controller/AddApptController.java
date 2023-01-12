@@ -92,9 +92,6 @@ public class AddApptController implements Initializable {
         endMinCombo.setItems(minutes);
     }
 
-    public void toMain(ActionEvent event) throws IOException {
-        Scenes.toMain(event);
-    }
 
     /**
      * Gathers information from Combo Boxes and Text Fields, calls ApptSQL class method addAppt to add appointment to database. Calls Appt method verifyDateRange to ensure appointment time is within business hours.
@@ -154,13 +151,11 @@ public class AddApptController implements Initializable {
     }
 
     /**
-     * Returns to Main without adding Appointment
+     * Returns to Main screen without Saving Appointment
      * @param event
      * @throws IOException
      */
-    public void cancel(ActionEvent event) throws IOException {
-        toMain(event);
+    public void toMain(ActionEvent event) throws IOException {
+        Scenes.toMain(event);
     }
-
-
 }

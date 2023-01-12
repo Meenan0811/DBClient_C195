@@ -32,7 +32,7 @@
       <TextField fx:id="typeText" layoutX="210.0" layoutY="175.0" />
       <TextField fx:id="userIdText" editable="false" layoutX="211.0" layoutY="451.0" />
       <Button fx:id="saveButton" layoutX="139.0" layoutY="497.0" mnemonicParsing="false" onAction="#saveAppt" text="Save" />
-      <Button fx:id="cancelButton" layoutX="327.0" layoutY="497.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+      <Button fx:id="cancelButton" layoutX="327.0" layoutY="497.0" mnemonicParsing="false" onAction="#toMain" text="Cancel" />
       <Label layoutX="83.0" layoutY="401.0" text="Contact Name" />
       <ComboBox fx:id="contactCombo" layoutX="209.0" layoutY="397.0" prefWidth="150.0" />
    </children>
