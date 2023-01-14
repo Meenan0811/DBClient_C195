@@ -1,6 +1,9 @@
 package Model;
 
 import com.sun.webkit.LoadListenerClient;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDateTime;
 
@@ -39,5 +42,18 @@ public class FLDivision {
     public String getUpdateBy() { return this.updateBy; }
 
     public int getCountryId() { return this.countryId; }
+
+    /**
+     * Returns Division ID of selected FLDivision object from Table
+     * @return
+     */
+    public static int getDivId(Object object) {
+        FLDivision currDiv = FLDivision.class.cast(object);
+        int divId = currDiv.getDivId();
+
+        return divId;
+    }
+
+
 
 }

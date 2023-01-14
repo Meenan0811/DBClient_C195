@@ -26,6 +26,6 @@
         </columns>
       </TableView>
       <Label layoutX="64.0" layoutY="313.0" text="Country" />
-      <ComboBox fx:id="countryCombo" layoutX="142.0" layoutY="309.0" onAction="#getCountry" prefWidth="150.0" />
+      <ComboBox fx:id="countryCombo" layoutX="142.0" layoutY="309.0" onAction="#setDivCol" prefWidth="150.0" />
    </children>
 </AnchorPane>

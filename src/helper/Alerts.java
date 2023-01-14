@@ -47,6 +47,12 @@ public abstract class Alerts {
             alert.setContentText("Start time must be before End Time");
             alert.showAndWait();
         }
+        if(code==7) {
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setHeaderText("Missing or Incorrect Fields");
+            alert.setContentText("Please choose a Country and appropriate State/Parish/Region");
+            alert.showAndWait();
+        }
     }
 
     public static void deleteAlert(Appt appt) {
