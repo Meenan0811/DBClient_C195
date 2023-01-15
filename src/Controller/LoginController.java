@@ -25,7 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Contains methods to verify username and password are correct before allowing user to enter main screen. Determinesusers locale and language based off of system settings.
+ * Contains methods to verify username and password are correct before allowing user to enter main screen. Determines users locale and language based off of system settings.
  *
  * @author Matt Meenan
  */
@@ -49,14 +49,17 @@ public class LoginController implements Initializable {
     public static int currUserId;
 
 
-    //FIXME: choose either locale or System for language selection, work on resourcebundle and properties file
+    /**
+     * OverRides Initialize class initialize method, Gets users locale based on system settings and sets onScreen prompts to either French or English and displays users Locale
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ZoneId zoneId = ZoneId.systemDefault();
         locTagLabel.setText(zoneId.toString());
-        Locale locale = Locale.getDefault(); //Creates locale object
-        String lang = locale.getDisplayLanguage(); //Gets default language
-        String langCode = System.getProperty("user.language"); // Gets language code
+
+        //Creates ResourceBundle Object and changes LoginController language based on System settings
         ResourceBundle rb = ResourceBundle.getBundle("language");
         userNameLabel.setText(rb.getString("userLabel"));
         passLabel.setText(rb.getString("passLabel"));
@@ -66,6 +69,12 @@ public class LoginController implements Initializable {
 
     }
 
+    /**
+     * Verifys that information proviced in Username and Password fields match a USername and Password in database. If match found call's toMain and provides user access to main screen. If no match found alerts user.
+     * All login attempts are logged with Username, date, and time in a .txt file
+     * @param actionEvent
+     * @throws IOException
+     */
     public void setSubmitButton(javafx.event.ActionEvent actionEvent) throws IOException {
         String userName = userText.getText();
         String pass = passWordPassField.getText();
@@ -87,7 +96,7 @@ public class LoginController implements Initializable {
 
                 try {
                     PrintWriter pw = new PrintWriter(new FileOutputStream(
-                            new File("login_activty.txt"),
+                            "login_activty.txt",
                             true ));
                     pw.append("Login Attempt: " + LocalDate.now() + "\nBy:" + userName + " Succesfull.\n");
                     pw.close();
@@ -103,7 +112,7 @@ public class LoginController implements Initializable {
             Alerts.alertMessage(1);
             try {
                 PrintWriter pw = new PrintWriter(new FileOutputStream(
-                        new File("login_activty.txt"),
+                        "login_activty.txt",
                         true ));
                 pw.append("Login Attempt: " + LocalDate.now() + " at " + Timestamp.valueOf(LocalDateTime.now()) + "\nBy:" + userName + " Failed.\n");
                 pw.close();
