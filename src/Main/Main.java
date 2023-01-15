@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -40,7 +41,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         JDBC.openConnection(); //opens connection
         //FIXME: Remove before submission
-        //Locale.setDefault(new Locale("fr"));
+        Locale.setDefault(new Locale("fr"));
         ObservableList<Contacts> contactList = FXCollections.observableArrayList();
         contactList = ContactsSQL.allContacts();
         ObservableList<Appt> apptList = FXCollections.observableArrayList();
@@ -82,8 +83,11 @@ public class Main extends Application {
         LocalDateTime current = LocalDateTime.now();
         LocalDateTime utcTime = TimeZones.toUtc(current);
         LocalDateTime localT = TimeZones.toLocal(utcTime);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
+        String dateTimeString = current.format(format);
 
-        System.out.println("\nCurrent: " + current + "\nLocal Date and Time: " + dateStart + "\n UTC: " + utcTime + "\nBack To Local: " + localT + " \nEST: " + TimeZones.toEST(utcTime)
+
+        System.out.println("\nCurrent: " + current + "\nLocal Date and Time: " + dateStart + "\n UTC: " + utcTime + "\nBack To Local: " + localT + " \nEST: " + TimeZones.toEST(utcTime) + "\nFormatted Time: " + dateTimeString
         );
 
 

@@ -32,6 +32,8 @@ import java.util.logging.Logger;
 public class LoginController implements Initializable {
 
     @FXML
+    private Label locLabel;
+    @FXML
     private PasswordField passWordPassField;
     @FXML
     private TextField userText;
@@ -57,7 +59,10 @@ public class LoginController implements Initializable {
         String langCode = System.getProperty("user.language"); // Gets language code
         ResourceBundle rb = ResourceBundle.getBundle("language");
         userNameLabel.setText(rb.getString("userLabel"));
-
+        passLabel.setText(rb.getString("passLabel"));
+        locLabel.setText(rb.getString("localLabel"));
+        userText.setPromptText(rb.getString("userText"));
+        passWordPassField.setPromptText(rb.getString("passField"));
 
     }
 

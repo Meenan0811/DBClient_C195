@@ -120,7 +120,14 @@ public class EditApptController implements Initializable {
             int userId = Integer.parseInt(userIdText.getText());
             int apptId = appt.getApptId();
             int contactId = appt.getContactId();
-            int custId = appt.getCustId();
+
+            String custName = custNameCombo.getValue().toString();
+            int custId = -1;
+            for (Customers c : custList) {
+                if (c.getName().equals(custName)) {
+                    custId = c.getCustId();
+                }
+            }
 
             if(title.isEmpty() || description.isEmpty() || location.isEmpty() || type.isEmpty()) {
                 Alerts.alertMessage(4);

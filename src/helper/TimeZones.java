@@ -1,12 +1,15 @@
 package helper;
 
+import javafx.scene.input.DataFormat;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 public abstract class TimeZones {
-    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
+
 
     public static LocalDateTime toUtc(LocalDateTime dateTime) {
         ZoneId localId = ZoneId.systemDefault();
@@ -23,7 +26,6 @@ public abstract class TimeZones {
     public static  LocalDateTime toLocal(LocalDateTime dateTime) {
         ZonedDateTime zOut = dateTime.atZone(ZoneId.of("UTC"));
         LocalDateTime zLocal = zOut.withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
-        //LocalDateTime local = zLocal.toLocalDateTime();
 
         return zLocal;
     }

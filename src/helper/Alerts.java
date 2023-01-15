@@ -1,20 +1,25 @@
 package helper;
 
 import DBAccess.ApptSQL;
+import DBAccess.CustomerSQL;
 import Model.Appt;
+import Model.Customers;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public abstract class Alerts {
 
     public static void alertMessage(int code) {
         Alert alert = new Alert(Alert.AlertType.NONE);
         if(code == 1) {
+            ResourceBundle rb = ResourceBundle.getBundle("language");
             alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("Incorrect username or Password. Please try again");
-            alert.setHeaderText("Login Incomplete");
+            alert.setContentText(rb.getString("loginAlert"));
+            alert.setHeaderText(rb.getString("loginHeader"));
             alert.showAndWait();
         }
         if(code == 2) {
@@ -58,7 +63,7 @@ public abstract class Alerts {
     public static void deleteAlert(Appt appt) {
         try {
             if (appt != null) {
-                Alert alert = new Alert((Alert.AlertType.WARNING));
+                Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText("Delete Appointment");
                 alert.setContentText("Are you sure you want to delete appointment ID:" + appt.getApptId() + "? This cannot be undone");
                 Optional<ButtonType> confirm = alert.showAndWait();
@@ -70,8 +75,36 @@ public abstract class Alerts {
         }
         catch (NullPointerException e) {
             Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setContentText("Please select an Appointment to delete");
+            error.setContentText("Please select a Appointment to delete");
             error.setHeaderText("Delete Appointment");
+            error.showAndWait();
+        }
+    }
+
+    public static void deleteCust(Customers cust) {
+        int custId = cust.getCustId();
+        ObservableList<Appt> apptList = ApptSQL.getAppts();
+
+        try {
+            if (cust != null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText("Delete Customer");
+                alert.setContentText("Are you sure you want to delete customer " + cust.getName() + "? This will delete all appointments assigned to this customer and cannot be undone.");
+                Optional<ButtonType> confirm = alert.showAndWait();
+                if (confirm.isPresent() && confirm.get() == ButtonType.OK) {
+                    for (Appt a : apptList) {
+                        if (a.getCustId() == custId) {
+                            ApptSQL.deleteAppt(a.getApptId());
+                        }
+                    }
+                    CustomerSQL.deleteCust(custId);
+                }
+            }
+            else { throw new NullPointerException(); }
+        }catch (NullPointerException n) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setContentText("Please select a Customer to delete");
+            error.setHeaderText("Delete Customer");
             error.showAndWait();
         }
     }

@@ -227,6 +227,12 @@ public class MainWinController implements Initializable {
         }
     }
 
+    public void deleteCust(ActionEvent event) throws IOException {
+        Customers cust = Customers.class.cast(custTable.getSelectionModel().getSelectedItem());
+        Alerts.deleteCust(cust);
+        Scenes.toMain(event);
+    }
+
     public void toReport(ActionEvent event) throws IOException {
         Scenes.toReports(event);
     }

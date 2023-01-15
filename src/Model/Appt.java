@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Appt {
     private int apptId;
@@ -21,6 +22,7 @@ public class Appt {
     private int userId;
     private int contactId;
     private String createBy;
+    private DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
 
     public Appt (int apptId, String title,String description, String location, String type, LocalDateTime start, LocalDateTime end, String createBy, int custId, int userId, int contactId ) {
         this.title = title;
