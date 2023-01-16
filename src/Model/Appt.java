@@ -22,7 +22,7 @@ public class Appt {
     private int userId;
     private int contactId;
     private String createBy;
-    private DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
+    private String dateTimeFormat = "MM/dd/yyyy HH:mm";
 
     public Appt (int apptId, String title,String description, String location, String type, LocalDateTime start, LocalDateTime end, String createBy, int custId, int userId, int contactId ) {
         this.title = title;
@@ -72,7 +72,11 @@ public class Appt {
 
     public LocalDateTime getStart() { return this.start; }
 
+    public String getFormatStart() { return start.format(DateTimeFormatter.ofPattern(dateTimeFormat)); }
+
     public LocalDateTime getEnd() { return this.end; }
+
+    public String getFormatEnd() { return end.format(DateTimeFormatter.ofPattern(dateTimeFormat)); }
 
     public int getCustId() { return this.custId; }
 

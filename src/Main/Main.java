@@ -41,7 +41,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         JDBC.openConnection(); //opens connection
         //FIXME: Remove before submission
-        Locale.setDefault(new Locale("fr"));
+        //Locale.setDefault(new Locale("fr"));
         ObservableList<Contacts> contactList = FXCollections.observableArrayList();
         contactList = ContactsSQL.allContacts();
         ObservableList<Appt> apptList = FXCollections.observableArrayList();

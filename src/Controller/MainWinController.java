@@ -88,13 +88,14 @@ public class MainWinController implements Initializable {
     private RadioButton monthRadio;
     @FXML
     private RadioButton allRadio;
+
     private LocalDate currDate = LocalDate.now();
     private ObservableList<Appt> allAppt = FXCollections.observableArrayList();
     private ObservableList<Appt> tempAppt = FXCollections.observableArrayList();
 
     public static Object passAppt;
     public static Object passCust;
-    public static int indexNum; //FIXME: Unused delete me??
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -174,8 +175,8 @@ public class MainWinController implements Initializable {
         locCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("location"));
         contactCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("contactId"));
         typeCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("type"));
-        startCol.setCellValueFactory(new PropertyValueFactory<Appt, LocalDateTime>("start"));
-        endCol.setCellValueFactory(new PropertyValueFactory<Appt, LocalDateTime>("end"));
+        startCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("FormatStart"));
+        endCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("FormatEnd"));
         apptCustIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("custId"));
         userIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("userId"));
     }
