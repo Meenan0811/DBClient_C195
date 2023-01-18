@@ -2,9 +2,11 @@ package Controller;
 
 import DBAccess.ApptSQL;
 import DBAccess.ContactsSQL;
+import DBAccess.CustomerSQL;
 import Model.Appt;
 import Model.Contacts;
 import Model.Customers;
+import helper.Alerts;
 import helper.Scenes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Month;
+import java.time.Year;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
@@ -25,6 +28,8 @@ import java.util.ResourceBundle;
  * @author Matthew Meenan
  */
 public class ReportController implements Initializable {
+    @FXML
+    private ComboBox yearCombo;
     @FXML
     private Button totalApptButton;
     @FXML
@@ -56,10 +61,12 @@ public class ReportController implements Initializable {
 
     private final ObservableList<Appt> apptList = ApptSQL.getAppts();
     private final ObservableList<Contacts> contList = ContactsSQL.allContacts();
-    private ObservableList<String> apptMonth = FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "October", "November", "December");
+    private final ObservableList<Customers> custList = CustomerSQL.getAllCust();
+    private ObservableList<Integer> custYear = FXCollections.observableArrayList();
     private ObservableList<String> apptType = FXCollections.observableArrayList();
     private ObservableList<String> contactName = FXCollections.observableArrayList();
     private ObservableList<Month> months = FXCollections.observableArrayList();
+
 
 
     /**
@@ -78,9 +85,9 @@ public class ReportController implements Initializable {
                 int totalAppt = ApptSQL.totalApptTM(typeCombo.getValue().toString(), Month.class.cast(monthCombo.getSelectionModel().getSelectedItem()));
                 if (totalAppt == 0) {
                     totalApptLabel.setText("No matching appointments found");
-                }
-                else if (totalAppt == 1) { totalApptLabel.setText(totalAppt + " Matching appointment found"); }
-                else {
+                } else if (totalAppt == 1) {
+                    totalApptLabel.setText(totalAppt + " Matching appointment found");
+                } else {
                     totalApptLabel.setText(totalAppt + " Matching appointments found");
                 }
             }
@@ -103,8 +110,15 @@ public class ReportController implements Initializable {
             }
             setContactApptTable(aList);
         });
-        
-
+         yearCombo.setOnAction(e -> {
+            int year = 0;
+            if (yearCombo.getSelectionModel().getSelectedItem() != null) {
+                CustomerSQL.custCreated(Integer.parseInt(yearCombo.getValue().toString()));
+            }
+            else {
+                Alerts.alertMessage(8);
+        }
+        });
     }
 
     /**
@@ -145,7 +159,22 @@ public class ReportController implements Initializable {
             contactName.add(contName);
         }
         contNameCombo.setItems(contactName);
-        //contNameCombo.setValue(contactName.get(0));
+
+
+        int years;
+        for (Customers c : custList) {
+            years = c.getCreateDate().getYear();
+            custYear.add(years);
+        }
+        yearCombo.setItems(custYear);
+        yearCombo.setValue(custYear.get(0));
+
+    }
+
+    public void custCreated(ActionEvent event) throws IOException {
+        int year = Integer.parseInt(yearCombo.getValue().toString());
+
+        CustomerSQL.custCreated(year);
     }
 
 

@@ -58,6 +58,12 @@ public abstract class Alerts {
             alert.setContentText("Please choose a Country and appropriate State/Parish/Region");
             alert.showAndWait();
         }
+        if(code==8) {
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setHeaderText("please choose a year");
+            alert.setContentText("Please choose a year");
+            alert.showAndWait();
+        }
     }
 
     public static void deleteAlert(Appt appt) {
