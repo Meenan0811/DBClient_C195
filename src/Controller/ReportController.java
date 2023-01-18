@@ -4,6 +4,7 @@ import DBAccess.ApptSQL;
 import DBAccess.ContactsSQL;
 import Model.Appt;
 import Model.Contacts;
+import Model.Customers;
 import helper.Scenes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Month;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
@@ -34,7 +36,7 @@ public class ReportController implements Initializable {
     @FXML
     private ComboBox monthCombo;
     @FXML
-    private ComboBox custNameCombo;
+    private ComboBox contNameCombo;
     @FXML
     private TableView contactApptTable;
     @FXML
@@ -57,6 +59,7 @@ public class ReportController implements Initializable {
     private ObservableList<String> apptMonth = FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "October", "November", "December");
     private ObservableList<String> apptType = FXCollections.observableArrayList();
     private ObservableList<String> contactName = FXCollections.observableArrayList();
+    private ObservableList<Month> months = FXCollections.observableArrayList();
 
 
     /**
@@ -66,16 +69,49 @@ public class ReportController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setContactApptTable();
+        setContactApptTable(apptList);
         setComboBox();
+        totalApptLabel.setText("");
+        //Lambda to set Action event for totalApptButton
+        totalApptButton.setOnAction(e -> {
+            if (typeCombo.getSelectionModel().getSelectedItem() != null && monthCombo.getSelectionModel().getSelectedItem() != null) {
+                int totalAppt = ApptSQL.totalApptTM(typeCombo.getValue().toString(), Month.class.cast(monthCombo.getSelectionModel().getSelectedItem()));
+                if (totalAppt == 0) {
+                    totalApptLabel.setText("No matching appointments found");
+                }
+                else if (totalAppt == 1) { totalApptLabel.setText(totalAppt + " Matching appointment found"); }
+                else {
+                    totalApptLabel.setText(totalAppt + " Matching appointments found");
+                }
+            }
+        });
+
+        contNameCombo.setOnAction(e -> {
+            ObservableList<Appt> aList = FXCollections.observableArrayList();
+            int contId = -1;
+            String cont = contNameCombo.getValue().toString();
+            for (Contacts c : contList) {
+                if (c.getName().equals(cont)) {
+                    contId = c.getContactId();
+
+                }
+            }
+            for (Appt a : apptList) {
+                if (a.getCustId() == contId) {
+                    aList.add(a);
+                }
+            }
+            setContactApptTable(aList);
+        });
+        
 
     }
 
     /**
      * Sets the Appointment table with all Appointments
      */
-    public void setContactApptTable() {
-        contactApptTable.setItems(apptList);
+    public void setContactApptTable(ObservableList<Appt> appt) {
+        contactApptTable.setItems(appt);
         apptIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("apptId"));
         titleCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("title"));
         typeCol.setCellValueFactory(new PropertyValueFactory<Appt, String>("type"));
@@ -85,23 +121,33 @@ public class ReportController implements Initializable {
         custIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("custId"));
     }
 
+    /**
+     * Adds all appropriate information to combo boxes
+     */
     public void setComboBox() {
-     monthCombo.setItems(apptMonth);
-     monthCombo.setValue("January");
+        //Lambda to add all Month values to an months List using Stream and forEach method
+        Arrays.stream(Month.values()).forEach(m -> months.add(Month.valueOf(m.name())));
 
-     String appTypes;
-     for (Appt a : apptList) {
-         appTypes = a.getType();
-         apptType.add(appTypes);
-     }
+        monthCombo.setItems(months);
+        monthCombo.setValue(months.get(0));
 
-     typeCombo.setItems(apptType);
+        String appTypes;
+        for (Appt a : apptList) {
+             appTypes = a.getType();
+             apptType.add(appTypes);
+        }
+        typeCombo.setItems(apptType);
+        typeCombo.setValue(apptType.get(0));
+
+        String contName;
+        for (Contacts c : contList) {
+            contName = c.getName();
+            contactName.add(contName);
+        }
+        contNameCombo.setItems(contactName);
+        //contNameCombo.setValue(contactName.get(0));
     }
 
-    public int totalAppt() {
-
-        return -1;
-    }
 
     /**
      * Returns to Main Screen

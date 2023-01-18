@@ -27,6 +27,8 @@ import java.util.ResourceBundle;
 /**
  *MainWindow controller, populates Appointment and customer windows. Passes selected data from Main Controller to next screen
  *
+ * Lambdas can be found in ReportController line 96 and EditCustController Lines 151 - 153
+ *
  * @author Matt Meenan
  */
 public class MainWinController implements Initializable {

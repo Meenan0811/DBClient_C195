@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.Month;
 
 /**
  * Contains methods to pass SQL commands to database and retrieve or update data from schema appointments Appointments table
@@ -165,6 +166,24 @@ public abstract class ApptSQL {
             return ps.executeUpdate();
         }
         catch(SQLException e){
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static int totalApptTM(String type, Month month) {
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(appointment_id) from appointments where month(start) = ? and type = ?";
+            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+            ps.setInt(1, month.getValue());
+            ps.setString(2, type);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) { count = rs.getInt(1); }
+
+            return count;
+        }catch(SQLException e){
             e.printStackTrace();
         }
         return -1;
