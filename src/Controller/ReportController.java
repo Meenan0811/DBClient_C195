@@ -93,6 +93,7 @@ public class ReportController implements Initializable {
             }
         });
 
+        //Lambda to set change Appointment table based on Contact chosen
         contNameCombo.setOnAction(e -> {
             ObservableList<Appt> aList = FXCollections.observableArrayList();
             int contId = -1;
