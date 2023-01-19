@@ -62,7 +62,7 @@ public class ReportController implements Initializable {
     private final ObservableList<Appt> apptList = ApptSQL.getAppts();
     private final ObservableList<Contacts> contList = ContactsSQL.allContacts();
     private final ObservableList<Customers> custList = CustomerSQL.getAllCust();
-    private ObservableList<Integer> custYear = FXCollections.observableArrayList();
+    private ObservableList<String> createBy = FXCollections.observableArrayList();
     private ObservableList<String> apptType = FXCollections.observableArrayList();
     private ObservableList<String> contactName = FXCollections.observableArrayList();
     private ObservableList<Month> months = FXCollections.observableArrayList();
@@ -145,11 +145,7 @@ public class ReportController implements Initializable {
         monthCombo.setItems(months);
         monthCombo.setValue(months.get(0));
 
-        String appTypes;
-        for (Appt a : apptList) {
-             appTypes = a.getType();
-             apptType.add(appTypes);
-        }
+        apptType = ApptSQL.apptType();
         typeCombo.setItems(apptType);
         typeCombo.setValue(apptType.get(0));
 
@@ -161,13 +157,9 @@ public class ReportController implements Initializable {
         contNameCombo.setItems(contactName);
 
 
-        int years;
-        for (Customers c : custList) {
-            years = c.getCreateDate().getYear();
-            custYear.add(years);
-        }
-        yearCombo.setItems(custYear);
-        yearCombo.setValue(custYear.get(0));
+        createBy = ApptSQL.apptCreatBy();
+        yearCombo.setItems(createBy);
+        yearCombo.setValue(createBy.get(0));
 
     }
 

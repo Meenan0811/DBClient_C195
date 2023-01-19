@@ -152,5 +152,4 @@ public abstract class CustomerSQL {
 
        return count;
     }
-
 }

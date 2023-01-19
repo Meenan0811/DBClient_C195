@@ -189,4 +189,38 @@ public abstract class ApptSQL {
         return -1;
     }
 
+    public static ObservableList<String> apptType() {
+        ObservableList<String> type = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT DISTINCT(Type) FROM appointments";
+            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String tempType = rs.getString(1);
+                type.add(tempType);
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return type;
+    }
+
+    public static ObservableList<String> apptCreatBy() {
+        ObservableList<String> custYear = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT DISTINCT(Created_By) FROM appointments";
+            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String year = rs.getString(1);
+                custYear.add(year);
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return custYear;
+    }
+
 }
