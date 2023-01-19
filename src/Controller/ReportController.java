@@ -114,7 +114,7 @@ public class ReportController implements Initializable {
          yearCombo.setOnAction(e -> {
             int year = 0;
             if (yearCombo.getSelectionModel().getSelectedItem() != null) {
-                CustomerSQL.custCreated(Integer.parseInt(yearCombo.getValue().toString()));
+
             }
             else {
                 Alerts.alertMessage(8);
