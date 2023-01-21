@@ -29,7 +29,9 @@ import java.util.ResourceBundle;
  */
 public class ReportController implements Initializable {
     @FXML
-    private ComboBox yearCombo;
+    private Label custLabel;
+    @FXML
+    private ComboBox custCombo;
     @FXML
     private Button totalApptButton;
     @FXML
@@ -79,6 +81,8 @@ public class ReportController implements Initializable {
         setContactApptTable(apptList);
         setComboBox();
         totalApptLabel.setText("");
+        custLabel.setText("");
+
         //Lambda to set Action event for totalApptButton
         totalApptButton.setOnAction(e -> {
             if (typeCombo.getSelectionModel().getSelectedItem() != null && monthCombo.getSelectionModel().getSelectedItem() != null) {
@@ -108,18 +112,34 @@ public class ReportController implements Initializable {
                 if (a.getCustId() == contId) {
                     aList.add(a);
                 }
+
             }
             setContactApptTable(aList);
         });
-         yearCombo.setOnAction(e -> {
-            int year = 0;
-            if (yearCombo.getSelectionModel().getSelectedItem() != null) {
 
-            }
-            else {
-                Alerts.alertMessage(8);
-        }
-        });
+        //Tallys total Appointments created by selected user and displays the information in a label
+        custCombo.setOnAction(e -> {
+
+            if (custCombo.getSelectionModel().getSelectedItem() != null) {
+                ObservableList<Appt> aList = FXCollections.observableArrayList();
+                int apptCreated = 0;
+                String apptCreatedBy = custCombo.getValue().toString();
+                for (Appt a : apptList) {
+                    if (a.getCreateBy().equals(apptCreatedBy)) {
+                        apptCreated +=1;
+                    }
+
+                }
+                if (apptCreated == 0) {
+                    custLabel.setText("No appointments created by this User");
+                }
+                else if (apptCreated == 1) {
+                    custLabel.setText("1 appointment created by this user");
+                }
+                else {
+                    custLabel.setText(String.valueOf(apptCreated) + " appointments created by this user");
+                }
+        }});
     }
 
     /**
@@ -159,16 +179,12 @@ public class ReportController implements Initializable {
 
 
         createBy = ApptSQL.apptCreatBy();
-        yearCombo.setItems(createBy);
-        yearCombo.setValue(createBy.get(0));
+        custCombo.setItems(createBy);
+        custCombo.setValue(createBy.get(0));
+
 
     }
 
-    public void custCreated(ActionEvent event) throws IOException {
-        int year = Integer.parseInt(yearCombo.getValue().toString());
-
-        CustomerSQL.custCreated(year);
-    }
 
 
     /**

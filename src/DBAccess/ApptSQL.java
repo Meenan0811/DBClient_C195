@@ -24,8 +24,8 @@ public abstract class ApptSQL {
     /**
      * Passes SQL command to database and retrieves all data from Appointments table
      *
-     * @author Mattthew Meenan
-     * @return
+     *
+     * @return ObservableList<Appt>
      */
     public static ObservableList<Model.Appt> getAppts(){
         ObservableList<Model.Appt> apptList = FXCollections.observableArrayList();
@@ -117,7 +117,7 @@ public abstract class ApptSQL {
      * @param contactId
      * @return integer
      *
-     * @author Matthew Meenan
+     *
      */
     public static int editAppt(int apptId, String title,String description, String location, String type, LocalDateTime start, LocalDateTime end, String lastUpdateBy, int custId, int userId, int contactId) {
         LocalDateTime startUTC = TimeZones.toUtc(start);
@@ -154,7 +154,7 @@ public abstract class ApptSQL {
      *
      * @param apptID
      * @return integer
-     * @author Matthew Meenan
+     *
      */
     public static int deleteAppt(int apptID) {
         try{
@@ -171,6 +171,13 @@ public abstract class ApptSQL {
         return -1;
     }
 
+    /**
+     * Passes SQL command to database and returns total number of appointments found for Type and Month selected
+     *
+     * @param type
+     * @param month
+     * @return int
+     */
     public static int totalApptTM(String type, Month month) {
         int count = 0;
         try {
@@ -206,6 +213,10 @@ public abstract class ApptSQL {
         return type;
     }
 
+    /**
+     * Passes SQL command to database and returns a list of Distinct user names who have created appointments found in database
+     * @return ObservableList<String>
+     */
     public static ObservableList<String> apptCreatBy() {
         ObservableList<String> custYear = FXCollections.observableArrayList();
         try {
@@ -214,8 +225,9 @@ public abstract class ApptSQL {
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String year = rs.getString(1);
+                String year = rs.getString("Created_By");
                 custYear.add(year);
+                System.out.println(year + " ");
             }
         }catch(SQLException e) {
             e.printStackTrace();

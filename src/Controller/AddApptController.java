@@ -136,14 +136,17 @@ public class AddApptController implements Initializable {
 
             if (title.isEmpty() || description.isEmpty() || location.isEmpty() || type.isEmpty()) {
                 Alerts.alertMessage(4);
+
             }
             if (!Appt.verifyDateTime(startDate, endDate)) {
 
-            } else {
+            } else if (title.isEmpty() == false && description.isEmpty() == false && location.isEmpty() == false && type.isEmpty() == false && Appt.verifyDateTime(startDate, endDate) == true) {
                 ApptSQL.addAppt(title, description, location, type, startDate, endDate, custId, LoginController.currUserId, contId);
                 toMain(event);
             }
         } catch (NumberFormatException e) {
+            Alerts.alertMessage(4);
+        }catch (NullPointerException n) {
             Alerts.alertMessage(4);
         }
 

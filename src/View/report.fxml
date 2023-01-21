@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,10 +11,10 @@
 
 <AnchorPane prefHeight="484.0" prefWidth="1101.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReportController">
    <children>
-      <Button fx:id="backButton" layoutX="962.0" layoutY="25.0" mnemonicParsing="false" onAction="#toMain" prefHeight="25.0" prefWidth="99.0" text="Back" />
+      <Button fx:id="backButton" layoutX="982.0" layoutY="166.0" mnemonicParsing="false" onAction="#toMain" prefHeight="25.0" prefWidth="99.0" text="Back" />
       <ComboBox fx:id="typeCombo" layoutX="102.0" layoutY="65.0" prefWidth="150.0" />
       <ComboBox fx:id="monthCombo" layoutX="102.0" layoutY="119.0" prefWidth="150.0" />
-      <ComboBox fx:id="contNameCombo" layoutX="551.0" layoutY="157.0" prefWidth="150.0" promptText="Choose Contact" />
+      <ComboBox fx:id="contNameCombo" layoutX="556.0" layoutY="166.0" prefWidth="150.0" promptText="Choose Contact" />
       <Label layoutX="36.0" layoutY="69.0" text="Type" />
       <Label layoutX="36.0" layoutY="123.0" text="Month" />
       <Label layoutX="36.0" layoutY="24.0" prefHeight="27.0" prefWidth="369.0" text="Displays total number of appointments by type and month" textAlignment="CENTER" textOverrun="CLIP">
@@ -34,8 +35,20 @@
         </columns>
       </TableView>
       <Button fx:id="totalApptButton" layoutX="279.0" layoutY="66.0" mnemonicParsing="false" text="Calculate" />
-      <Label layoutX="353.0" layoutY="161.0" text="Search appointments by Contact" />
-      <ComboBox fx:id="yearCombo" layoutX="615.0" layoutY="66.0" onAction="#custCreated" prefWidth="150.0" />
-      <ComboBox layoutX="615.0" layoutY="111.0" prefWidth="150.0" />
+      <Label layoutX="353.0" layoutY="170.0" text="Search appointments by Contact" />
+      <ComboBox fx:id="custCombo" layoutX="712.0" layoutY="95.0" prefWidth="150.0" promptText="Choose a User" />
+      <Label fx:id="custLabel" layoutX="875.0" layoutY="99.0" text="Label" />
+      <Label layoutX="631.0" layoutY="15.0" text="Displays total number of upcoming appointments " textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="700.0" layoutY="41.0" text="created by the selected User">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Separator layoutX="-1.0" layoutY="151.0" prefHeight="8.0" prefWidth="1101.0" />
+      <Separator layoutX="553.0" layoutY="3.0" orientation="VERTICAL" prefHeight="148.0" prefWidth="6.0" />
    </children>
 </AnchorPane>
