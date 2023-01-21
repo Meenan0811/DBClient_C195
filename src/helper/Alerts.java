@@ -5,9 +5,12 @@ import DBAccess.CustomerSQL;
 import Model.Appt;
 import Model.Customers;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
+import javax.swing.*;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -64,6 +67,18 @@ public abstract class Alerts {
             alert.setContentText("Please choose a year");
             alert.showAndWait();
         }
+
+    }
+
+    public static void cancel(ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setAlertType((Alert.AlertType.WARNING));
+        alert.setHeaderText("Information will not be saved");
+        alert.setContentText("Do you want to return to the main screen without saving you information?");
+        Optional<ButtonType> confirm = alert.showAndWait();
+        if (confirm.isPresent() && confirm.get() == ButtonType.OK){
+            Scenes.toMain(event);
+        }
     }
 
     public static void deleteAlert(Appt appt) {
@@ -71,7 +86,7 @@ public abstract class Alerts {
             if (appt != null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText("Delete Appointment");
-                alert.setContentText("Are you sure you want to delete appointment ID:" + appt.getApptId() + "? This cannot be undone");
+                alert.setContentText("Are you sure you want to delete appointment ID: " + appt.getApptId() + " , type: " + appt.getType() +"? This cannot be undone");
                 Optional<ButtonType> confirm = alert.showAndWait();
                 if (confirm.isPresent() && confirm.get() == ButtonType.OK) {
                     ApptSQL.deleteAppt(appt.getApptId());
