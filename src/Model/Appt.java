@@ -113,7 +113,13 @@ public class Appt {
             Alerts.alertMessage(6);
             range = false;
             return range;
-        } else {
+        }
+        if (start.isBefore(LocalDateTime.now())) {
+            Alerts.alertMessage(6);
+            range = false;
+            return range;
+        }
+        else {
             range = true;
         }
     return range;

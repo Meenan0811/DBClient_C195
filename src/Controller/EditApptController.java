@@ -48,7 +48,7 @@ public class EditApptController implements Initializable {
     private final ObservableList<Customers> custList = CustomerSQL.getAllCust();
     private ObservableList<String> names = FXCollections.observableArrayList();
     private final ObservableList<Integer> hours = FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);
-    private final ObservableList<Integer> minutes = FXCollections.observableArrayList(00, 15, 30 ,45);
+    private final ObservableList<String> minutes = FXCollections.observableArrayList("00", "15", "30", "45");
 
 
     @Override
@@ -87,12 +87,12 @@ public class EditApptController implements Initializable {
     }
 
     /**
-     * returns to main screen
+     * returns to main screen and alerts user that entered information will not be saved
      * @param event
      * @throws IOException
      */
     public void toMain(ActionEvent event) throws IOException {
-        Scenes.toMain(event);
+        Alerts.cancel(event);
     }
 
     /**
@@ -137,7 +137,7 @@ public class EditApptController implements Initializable {
             }
             else if (title.isEmpty() == false && description.isEmpty() == false && location.isEmpty() == false && type.isEmpty() == false && Appt.verifyDateTime(startDate, endDate) == true) {
                 ApptSQL.editAppt(apptId, title, description, location, type, startDate, endDate, LoginController.currUser, custId, userId, contactId);
-                toMain(event);
+                Scenes.toMain(event);
             }
         } catch (NumberFormatException n) {
             Alerts.alertMessage(4);

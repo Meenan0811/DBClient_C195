@@ -30,7 +30,8 @@ import java.util.ResourceBundle;
  * @author Matthew Meenan
  */
 public class AddApptController implements Initializable {
-    public ComboBox custNameCombo;
+    @FXML private
+    ComboBox custNameCombo;
     @FXML
     private ComboBox contactCombo;
     @FXML
@@ -61,7 +62,7 @@ public class AddApptController implements Initializable {
     private Button saveButton;
 
     private final ObservableList<Integer> hours = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23);
-    private final ObservableList<Integer> minutes = FXCollections.observableArrayList(00, 15, 30, 45);
+    private final ObservableList<String> minutes = FXCollections.observableArrayList("00", "15", "30", "45");
     private final ObservableList<Customers> custList = CustomerSQL.getAllCust();
     private final ObservableList<Contacts> contList = ContactsSQL.allContacts();
     private ObservableList<String> names = FXCollections.observableArrayList();
@@ -83,13 +84,21 @@ public class AddApptController implements Initializable {
             contact.add(name);
         }
         custNameCombo.setItems(names);
-        //Customers currcust = Customers.class.cast(custNameCombo.getSelectionModel().getSelectedItem());
+        custNameCombo.setValue(names.get(0));
         userIdText.setText(Integer.toString(LoginController.currUserId));
         contactCombo.setItems(contact);
+        contactCombo.setValue(contact.get(0));
         startHrCombo.setItems(hours);
+        startHrCombo.setValue(hours.get(0));
         startMinCombo.setItems(minutes);
+        startMinCombo.setValue(minutes.get(0));
         endHrCombo.setItems(hours);
+        endHrCombo.setValue(hours.get(0));
         endMinCombo.setItems(minutes);
+        endMinCombo.setValue(minutes.get(0));
+
+        startDate.setValue(LocalDate.now());
+        endDate.setValue(LocalDate.now());
     }
 
 
@@ -142,7 +151,7 @@ public class AddApptController implements Initializable {
 
             } else if (title.isEmpty() == false && description.isEmpty() == false && location.isEmpty() == false && type.isEmpty() == false && Appt.verifyDateTime(startDate, endDate) == true) {
                 ApptSQL.addAppt(title, description, location, type, startDate, endDate, custId, LoginController.currUserId, contId);
-                toMain(event);
+                Scenes.toMain(event);
             }
         } catch (NumberFormatException e) {
             Alerts.alertMessage(4);
@@ -154,11 +163,11 @@ public class AddApptController implements Initializable {
     }
 
     /**
-     * Returns to Main screen without Saving Appointment
+     * Returns to Main screen without Saving Appointment and calls Alert class to provide user alert that the entered information will not be saved
      * @param event
      * @throws IOException
      */
     public void toMain(ActionEvent event) throws IOException {
-        Scenes.toMain(event);
+        Alerts.cancel(event);
     }
 }

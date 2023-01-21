@@ -14,8 +14,16 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Alert cast, contains all alert messages used throughout the program
+ * @author Matthew Meenan
+ */
 public abstract class Alerts {
 
+    /**
+     * Contains code create and supply appropriate Alert message
+     * @param code
+     */
     public static void alertMessage(int code) {
         Alert alert = new Alert(Alert.AlertType.NONE);
         if(code == 1) {
@@ -52,7 +60,7 @@ public abstract class Alerts {
         if(code==6) {
             alert.setAlertType(Alert.AlertType.WARNING);
             alert.setHeaderText("Check Start and End times");
-            alert.setContentText("Start time must be before End Time");
+            alert.setContentText("Start time must be before End Time and cannot be before today's date and time");
             alert.showAndWait();
         }
         if(code==7) {
@@ -70,6 +78,10 @@ public abstract class Alerts {
 
     }
 
+    /**
+     * Provides alert informing user the information they have entered will not be saved and returns to main screen
+     * @throws IOException
+     */
     public static void cancel(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setAlertType((Alert.AlertType.WARNING));

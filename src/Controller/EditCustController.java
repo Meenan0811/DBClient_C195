@@ -22,6 +22,10 @@ import java.util.ResourceBundle;
 
 import static Controller.MainWinController.passCust;
 
+/**
+ * Contains code to control Edit user window
+ * @author Matthew Meenan
+ */
 public class EditCustController implements Initializable {
     @FXML
     private TextField custNameText;
@@ -77,10 +81,18 @@ public class EditCustController implements Initializable {
 
     }
 
+    /**
+     * Alerts user that infromation will not be saved and returns to main window
+     * @throws IOException
+     */
     public void toMain(ActionEvent event) throws IOException {
-        Scenes.toMain(event);
+        Alerts.cancel(event);
     }
 
+    /**
+     * Retrieves information from fields and, if all fields are completed, passes information to CustomerSQL class to update information on database
+     * @throws IOException
+     */
     public void saveEditCust(ActionEvent event) throws IOException {
         try {
             int custId = Integer.parseInt(custIdText1.getText());
@@ -95,7 +107,7 @@ public class EditCustController implements Initializable {
             }
             else {
                 CustomerSQL.editCust(custId, custName, address, postal, phone, LoginController.currUser, divId);
-                toMain(event);
+                Scenes.toMain(event);
             }
 
 

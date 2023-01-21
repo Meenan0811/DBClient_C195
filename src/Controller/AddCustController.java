@@ -10,6 +10,7 @@ import helper.Scenes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,22 +19,41 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Contains code that controls Add customer screen
+ * @author Matthew Meenan
+ */
 public class AddCustController implements Initializable {
-    public TextField custNameText;
-    public TextField phoneText;
-    public TextField addressText;
-    public TextField postalText;
-    public ComboBox stateCombo;
-    public Button saveButton;
-    public Button cancelButton;
-    public TableView countryTable;
-    public ComboBox countryCombo;
-    public TableColumn stateCol;
+    @FXML
+    private TextField custNameText;
+    @FXML
+    private TextField phoneText;
+    @FXML
+    private TextField addressText;
+    @FXML
+    private TextField postalText;
+    @FXML
+    private ComboBox stateCombo;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Button cancelButton;
+    @FXML
+    private TableView countryTable;
+    @FXML
+    private ComboBox countryCombo;
+    @FXML
+    private TableColumn stateCol;
     ObservableList<Countries> countryList = CountriesSQL.getCountries();
     ObservableList<String> country = FXCollections.observableArrayList();
     ObservableList<FLDivision> divList = FLDivisionSQL.getAllFl();
 
 
+    /**
+     * OverRides initialize method of Initializable class
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         for (Countries c : countryList) {
@@ -47,10 +67,20 @@ public class AddCustController implements Initializable {
 
     }
 
+    /**
+     * Alerts user that the information entered will not be saved and returns to main screen
+     * @param event
+     * @throws IOException
+     */
     public void toMain(ActionEvent event) throws IOException {
-        Scenes.toMain(event);
+        Alerts.cancel(event);
     }
 
+    /**
+     * Retrieves information and, if all fields are filled out correctly, passes information to CustomerSQL addCust method and adds information to database
+     * @param event
+     * @throws IOException
+     */
     public void saveAddCust(ActionEvent event) throws IOException {
         try {
             String custName = custNameText.getText();

@@ -180,9 +180,7 @@ public class ReportController implements Initializable {
 
         createBy = ApptSQL.apptCreatBy();
         custCombo.setItems(createBy);
-        custCombo.setValue(createBy.get(0));
-
-
+        //custCombo.setValue(createBy.get(0));
     }
 
 
