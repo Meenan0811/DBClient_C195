@@ -98,6 +98,11 @@ public class MainWinController implements Initializable {
     public static Object passCust;
 
 
+    /**
+     * OverRides initialize method of Initializable class
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -114,8 +119,10 @@ public class MainWinController implements Initializable {
 
     }
 
-    @FXML
-    private void monthSelected() {
+    /**
+     * Sets appointment table to only display Appointments that start in the current month
+     */
+    public void monthSelected() {
         tempAppt.clear();
         Month month = currDate.getMonth();
         Month tempMonth;
@@ -140,8 +147,7 @@ public class MainWinController implements Initializable {
      * When week view radio button is selected loops through available appointments and displays all appointments within the next 7 days in appointments table
      *
      */
-    @FXML
-    private void weekSelected() {
+    public void weekSelected() {
         LocalDate date;
         tempAppt.clear();
 
@@ -159,8 +165,10 @@ public class MainWinController implements Initializable {
         setApptTable(tempAppt);
     }
 
-    @FXML
-    private void allSelected() {
+    /**
+     * Displays all available Appointments in Appointment table
+     */
+    public void allSelected() {
         monthRadio.setSelected(false);
         weekRadio.setSelected(false);
         allRadio.setSelected(true);
@@ -168,6 +176,10 @@ public class MainWinController implements Initializable {
         setApptTable(allAppt);
     }
 
+    /**
+     * Passes ObservableList to apptTable and and columns
+     * @param appt
+     */
     public void setApptTable(ObservableList<Appt> appt) {
         apptTable.setItems(appt);
         apptIdCol.setCellValueFactory(new PropertyValueFactory<Appt, Integer>("apptId"));
@@ -208,6 +220,11 @@ public class MainWinController implements Initializable {
         }
     }
 
+    /**
+     * Calls the deleteAlert method and passes selected appointment to Alerts class, if user accepts prompt Appt object is passed to ApptSQL delete method and appointment is removed from the database
+     * @param event
+     * @throws IOException
+     */
     public void deleteAppt(ActionEvent event) throws IOException {
         Appt appt = Appt.class.cast(apptTable.getSelectionModel().getSelectedItem());
         Alerts.deleteAlert(appt);
@@ -215,6 +232,11 @@ public class MainWinController implements Initializable {
 
     }
 
+    /**
+     * Calls toAddCust method of Scenes class
+     * @param event
+     * @throws IOException
+     */
     public void toAddCust(ActionEvent event) throws IOException {
         Scenes.toAddCust(event);
     }
@@ -229,16 +251,31 @@ public class MainWinController implements Initializable {
         }
     }
 
+    /**
+     * Calls the deleteCust method and passes selected customer object to Alerts class, if user accepts prompt customer object is passed to CustomerSQL delete method and customer and all associated appointment's are removed from the database
+     * @param event
+     * @throws IOException
+     */
     public void deleteCust(ActionEvent event) throws IOException {
         Customers cust = Customers.class.cast(custTable.getSelectionModel().getSelectedItem());
         Alerts.deleteCust(cust);
         Scenes.toMain(event);
     }
 
+    /**
+     * Calls toReports method of Scenes class
+     * @param event
+     * @throws IOException
+     */
     public void toReport(ActionEvent event) throws IOException {
         Scenes.toReports(event);
     }
 
+    /**
+     * Calls logout method of Scenes class
+     * @param event
+     * @throws IOException
+     */
     public void logout(ActionEvent event) throws IOException {
         Scenes.logout(event);
     }

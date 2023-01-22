@@ -26,12 +26,12 @@ import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 /**
- *
+ * Contains code to control Add appointment screen
  * @author Matthew Meenan
  */
 public class AddApptController implements Initializable {
-    @FXML private
-    ComboBox custNameCombo;
+    @FXML
+    private ComboBox custNameCombo;
     @FXML
     private ComboBox contactCombo;
     @FXML

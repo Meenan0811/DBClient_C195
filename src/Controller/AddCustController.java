@@ -140,14 +140,4 @@ public class AddCustController implements Initializable {
         }
     }
 
-    /**
-     * Returns Division ID of selected FLDivision object from Table
-     * @return
-     */
-    /*public int getDivId() {
-        FLDivision currDiv = FLDivision.class.cast(countryTable.getSelectionModel().getSelectedItem());
-        int divId = currDiv.getDivId();
-
-        return divId;
-    }*/
 }

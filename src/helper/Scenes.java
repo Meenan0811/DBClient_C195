@@ -15,7 +15,7 @@ public abstract class Scenes {
     public static void toMain(ActionEvent event) throws IOException {
         FXMLLoader mainWin = new FXMLLoader(MainWinController.class.getResource("../View/mainWin.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(mainWin.load(), 1242, 707);
+        Scene scene = new Scene(mainWin.load(), 1067, 656);
         stage.setTitle("Appointment Schedule");
         stage.setScene(scene);
         stage.show();
@@ -23,7 +23,7 @@ public abstract class Scenes {
 
     public static void toAddCust(ActionEvent event) throws IOException {
         FXMLLoader addCust = new FXMLLoader(MainWinController.class.getResource("../View/addCust.fxml"));
-        Scene scene = new Scene(addCust.load());
+        Scene scene = new Scene(addCust.load(),734,386);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Add New Customer");
         stage.setScene(scene);
@@ -33,7 +33,7 @@ public abstract class Scenes {
 
     public static void toEditCust(ActionEvent event) throws IOException {
         FXMLLoader editCust = new FXMLLoader(MainWinController.class.getResource("../View/editCust.fxml"));
-        Scene scene = new Scene(editCust.load());
+        Scene scene = new Scene(editCust.load(),734, 386);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Edit Customer");
         stage.setScene(scene);
@@ -63,7 +63,7 @@ public abstract class Scenes {
         FXMLLoader report = new FXMLLoader(MainWinController.class.getResource("../View/report.fxml"));
         Scene scene = new Scene(report.load());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle("Add New Appointment");
+        stage.setTitle("Reports");
         stage.setScene(scene);
         stage.show();
     }

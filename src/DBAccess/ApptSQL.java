@@ -196,6 +196,10 @@ public abstract class ApptSQL {
         return -1;
     }
 
+    /**
+     * Passes SQL command to database to identify Distinct Types of appointments created
+     * @return
+     */
     public static ObservableList<String> apptType() {
         ObservableList<String> type = FXCollections.observableArrayList();
         try {
@@ -225,9 +229,8 @@ public abstract class ApptSQL {
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String year = rs.getString("Created_By");
-                custYear.add(year);
-                System.out.println(year + " ");
+                String create_by = rs.getString("Created_By");
+                custYear.add(create_by);
             }
         }catch(SQLException e) {
             e.printStackTrace();

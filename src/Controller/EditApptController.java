@@ -51,6 +51,11 @@ public class EditApptController implements Initializable {
     private final ObservableList<String> minutes = FXCollections.observableArrayList("00", "15", "30", "45");
 
 
+    /**
+     * OverRides initialize method of Initializable class
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         for (Customers c : custList) {

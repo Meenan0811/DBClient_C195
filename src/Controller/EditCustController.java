@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 import static Controller.MainWinController.passCust;
 
 /**
- * Contains code to control Edit user window
+ * Contains code to control Edit user window, information is passed from Main based on customer chosen in customer table
  * @author Matthew Meenan
  */
 public class EditCustController implements Initializable {
@@ -82,7 +82,7 @@ public class EditCustController implements Initializable {
     }
 
     /**
-     * Alerts user that infromation will not be saved and returns to main window
+     * Alerts user that information will not be saved and returns to main window
      * @throws IOException
      */
     public void toMain(ActionEvent event) throws IOException {
@@ -166,7 +166,7 @@ public class EditCustController implements Initializable {
 
             countryTable.setItems(tempDivList);
             stateCol.setCellValueFactory(new PropertyValueFactory<>("div"));
-            System.out.print(temp + "\n");
+
         }
     }
 

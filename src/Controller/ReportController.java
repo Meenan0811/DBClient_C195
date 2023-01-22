@@ -6,7 +6,6 @@ import DBAccess.CustomerSQL;
 import Model.Appt;
 import Model.Contacts;
 import Model.Customers;
-import helper.Alerts;
 import helper.Scenes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Month;
-import java.time.Year;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
@@ -121,7 +119,6 @@ public class ReportController implements Initializable {
         custCombo.setOnAction(e -> {
 
             if (custCombo.getSelectionModel().getSelectedItem() != null) {
-                ObservableList<Appt> aList = FXCollections.observableArrayList();
                 int apptCreated = 0;
                 String apptCreatedBy = custCombo.getValue().toString();
                 for (Appt a : apptList) {
@@ -137,7 +134,7 @@ public class ReportController implements Initializable {
                     custLabel.setText("1 appointment created by this user");
                 }
                 else {
-                    custLabel.setText(String.valueOf(apptCreated) + " appointments created by this user");
+                    custLabel.setText((apptCreated) + " appointments created by this user");
                 }
         }});
     }
@@ -180,7 +177,7 @@ public class ReportController implements Initializable {
 
         createBy = ApptSQL.apptCreatBy();
         custCombo.setItems(createBy);
-        //custCombo.setValue(createBy.get(0));
+
     }
 
 
