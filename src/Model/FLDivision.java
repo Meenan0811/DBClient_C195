@@ -1,12 +1,11 @@
 package Model;
 
-import com.sun.webkit.LoadListenerClient;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.time.LocalDateTime;
 
+/**
+ * Contains methods and constructors for FLDivision object
+ * @author Matthew Meenan
+ */
 public class FLDivision {
 
     private int divId;
@@ -17,6 +16,16 @@ public class FLDivision {
     private String updateBy;
     private int countryId;
 
+    /**
+     * FLDivision object constructor
+     * @param divId
+     * @param div
+     * @param createDate
+     * @param createBy
+     * @param updateDate
+     * @param updateBy
+     * @param countryId
+     */
     public FLDivision(int divId, String div,LocalDateTime createDate, String createBy, LocalDateTime updateDate, String updateBy, int countryId) {
         this.divId = divId;
         this.div = div;
@@ -28,7 +37,9 @@ public class FLDivision {
     }
 
 
-    //Get Methods
+    /**
+     * Get methods for FLDivision object
+     */
     public int getDivId() { return this.divId; }
 
     public String getDiv() { return this.div; }
@@ -45,7 +56,6 @@ public class FLDivision {
 
     /**
      * Returns Division ID of selected FLDivision object from Table
-     * @return
      */
     public static int getDivId(Object object) {
         FLDivision currDiv = FLDivision.class.cast(object);

@@ -1,11 +1,14 @@
 package Model;
 
-import DBAccess.FLDivisionSQL;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDateTime;
 
+/**
+ * Contains methods and constructor for Customers object
+ * @author Matthew Meenan
+ */
 public class Customers {
     private int custId;
     private String name;
@@ -20,6 +23,19 @@ public class Customers {
     private String state;
     private ObservableList<FLDivision> flDivList = FXCollections.observableArrayList();
 
+    /**
+     * Customers object constructor
+     * @param custId
+     * @param name
+     * @param address
+     * @param postal
+     * @param phone
+     * @param createDate
+     * @param createBy
+     * @param lastUpdate
+     * @param updateBy
+     * @param divId
+     */
     public Customers(int custId, String name, String address, String postal, String phone,LocalDateTime createDate, String createBy,LocalDateTime lastUpdate, String updateBy, int divId) {
         this.custId = custId;
         this.name = name;
@@ -33,7 +49,10 @@ public class Customers {
         this.divId = divId;
     }
 
-    //Set Methods
+    /**
+     * Setter methods for Customers Object
+     * @param custId
+     */
     public void setCustId(int custId) { this.custId = custId; }
 
     public void setName(String name) { this.name = name; }
@@ -54,7 +73,9 @@ public class Customers {
 
     public void setDivId(int divId) { this.divId = divId; }
 
-    //Get Methods
+    /**
+     * Get Methods for Customers object
+     */
     public int getCustId() { return this.custId; }
 
     public String getName() { return this.name; }
@@ -75,7 +96,7 @@ public class Customers {
 
     public int getDivId() { return this.divId; }
 
-    public String geState(int divId) {
+    /*public String geState(int divId) {
         int temp;
         flDivList = FLDivisionSQL.getAllFl();
         for (FLDivision f : flDivList) {
@@ -86,7 +107,7 @@ public class Customers {
         }
 
         return state;
-    }
+    }*/
 
 
 }

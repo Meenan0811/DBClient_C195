@@ -96,7 +96,6 @@ public class Appt {
     public String getCreateBy() { return this.createBy; }
 
 
-    //FIXME: Add code to verify that date and time are withing operating hours on east coast
     /**
      * Verify that date and time passed are within operating hours and appointment starts before appointment end time
      * @param start
@@ -135,7 +134,7 @@ public class Appt {
     }
 
     /**
-     * Checks all appointment times, if appointment is witihin 15 minutes of the current time the user will receive an alert with the appointment ID. If no matching appointment is found the user receives an alert
+     * Checks all appointment times, if appointment is within 15 minutes of the current time the user will receive an alert with the appointment ID. If no matching appointment is found the user receives an alert
      *
      */
     public static void immediateAppt() {
