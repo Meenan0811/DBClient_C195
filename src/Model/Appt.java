@@ -5,11 +5,14 @@ import helper.Alerts;
 import helper.TimeZones;
 import javafx.collections.ObservableList;
 
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Contains methods and constructor to create Appointment object
+ * @author Matthew Meenan
+ */
 public class Appt {
     private int apptId;
     private String title;
@@ -38,7 +41,9 @@ public class Appt {
         this.apptId = apptId;
     }
 
-    //Set Methods
+    /**
+     * Methods to set chosen Data for an existing Appointment Object
+     */
     public void setApptId(int apptId) { this.apptId = apptId; }
 
     public void setTitle(String title) { this.title = title; }
@@ -61,7 +66,9 @@ public class Appt {
 
     public void setContactId(int contactId) { this.contactId = contactId; }
 
-    //Get Methods
+    /**
+     * Methods to return specific information from Appointment Object
+     */
     public int getApptId() { return this.apptId; }
 
     public String getTitle() { return this.title; }
@@ -146,5 +153,55 @@ public class Appt {
             Alerts.upcomingAppt(apptId);
         }
     }
+
+    /**
+     * Verify's that the current times passed to method do not overlap an existing timeframe with the Customer ID passed
+     * @param start
+     * @param end
+     * @param custId
+     * @return
+     */
+    public static boolean overlap(LocalDateTime start, LocalDateTime end, int custId) {
+        ObservableList<Appt> appts = ApptSQL.getAppts();
+        for (Appt a : appts) {
+            LocalDateTime existingstartTime = a.getStart();
+            LocalDateTime existingendTime = a.getEnd();
+            int existingId = a.getCustId();
+
+            if (existingId == custId && existingstartTime.isBefore(end) && start.isBefore(existingendTime)) {
+                Alerts.alertMessage(9);
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    /**
+     * OverLoads overlap method to accept the current ApptId when editing an existing Appointment
+     * @param start
+     * @param end
+     * @param custId
+     * @param ApptId
+     * @return
+     */
+    public static boolean overlap(LocalDateTime start, LocalDateTime end, int custId, int ApptId) {
+        ObservableList<Appt> appts = ApptSQL.getAppts();
+        for (Appt a : appts) {
+            LocalDateTime existingstartTime = a.getStart();
+            LocalDateTime existingendTime = a.getEnd();
+            int existingId = a.getCustId();
+            int existingApptId = a.getApptId();
+            if (existingApptId != ApptId) {
+                if (existingId == custId && existingstartTime.isBefore(end) && start.isBefore(existingendTime)) {
+                    Alerts.alertMessage(9);
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
 
 }

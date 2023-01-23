@@ -75,6 +75,12 @@ public abstract class Alerts {
             alert.setContentText("Please choose a year");
             alert.showAndWait();
         }
+        if(code==9) {
+            alert.setAlertType((Alert.AlertType.WARNING));
+            alert.setHeaderText("Date and Time Overlap");
+            alert.setContentText("Selected Date and Time overlap with an existing appointment for the selected Customer");
+            alert.showAndWait();
+        }
 
     }
 
@@ -93,6 +99,12 @@ public abstract class Alerts {
         }
     }
 
+    /**
+     * Provides alert information informing the user that they are about to delete an existing appointment and provides the Appointment ID and type
+     * If user accepts calls ApptSQL class deleteAppt method and passes selected Appointment
+     * If the user has not selected an appointment alerts the user to select an appointment
+     * @param appt
+     */
     public static void deleteAlert(Appt appt) {
         try {
             if (appt != null) {
@@ -114,6 +126,13 @@ public abstract class Alerts {
         }
     }
 
+    /**
+     * Provides alert information informing the user that they are about to delete an existing customer and provides the Customer name.
+     * Informs user that all associated appointments with the user ID will also be deleted
+     * If user accepts calls ApptSQL class deleteAppt method and passes all appointments with the customer ID as well as CustomerSQL class deleteCust and pass the selcted customer ID
+     * If the user has not selected customer alerts the user to select an customer
+     * @param cust
+     */
     public static void deleteCust(Customers cust) {
         int custId = cust.getCustId();
         ObservableList<Appt> apptList = ApptSQL.getAppts();
@@ -142,6 +161,10 @@ public abstract class Alerts {
         }
     }
 
+    /**
+     * Alerts user if they is a appointment scheduled within the next 15 minutes when called
+     * @param apptId
+     */
     public static void upcomingAppt(int apptId) {
         if (apptId > -1) {
             Alert alert = new Alert(Alert.AlertType.WARNING);

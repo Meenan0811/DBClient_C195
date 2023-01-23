@@ -24,6 +24,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         JDBC.openConnection(); //opens connection
+        //System.out.println("JavaFX Version: " + System.getProperty("javafx.version"));
 
         launch(args);
 

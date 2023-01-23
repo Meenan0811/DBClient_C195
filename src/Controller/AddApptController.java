@@ -145,11 +145,12 @@ public class AddApptController implements Initializable {
 
             if (title.isEmpty() || description.isEmpty() || location.isEmpty() || type.isEmpty()) {
                 Alerts.alertMessage(4);
-
             }
-            if (!Appt.verifyDateTime(startDate, endDate)) {
-
-            } else if (title.isEmpty() == false && description.isEmpty() == false && location.isEmpty() == false && type.isEmpty() == false && Appt.verifyDateTime(startDate, endDate) == true) {
+            if (!Appt.verifyDateTime(startDate, endDate)) {}
+            if (Appt.overlap(startDate, endDate, custId) == true) {
+                Alerts.alertMessage(9);
+            }
+            else if (title.isEmpty() == false && description.isEmpty() == false && location.isEmpty() == false && type.isEmpty() == false && Appt.verifyDateTime(startDate, endDate) == true) {
                 ApptSQL.addAppt(title, description, location, type, startDate, endDate, custId, LoginController.currUserId, contId);
                 Scenes.toMain(event);
             }

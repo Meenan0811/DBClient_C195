@@ -74,8 +74,6 @@ public abstract class ApptSQL {
      */
 
     public static int addAppt(String title,String description, String location, String type, LocalDateTime start, LocalDateTime end,int custId, int userId, int contactId) {
-        LocalDateTime startUTC = TimeZones.toUtc(start);
-        LocalDateTime endUTC = TimeZones.toUtc(end);
 
         try {
             String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES (?, ?, ?, ?, ?, ?, now(), ?, now(), ?, ?, ?, ?)";
@@ -120,9 +118,6 @@ public abstract class ApptSQL {
      *
      */
     public static int editAppt(int apptId, String title,String description, String location, String type, LocalDateTime start, LocalDateTime end, String lastUpdateBy, int custId, int userId, int contactId) {
-        LocalDateTime startUTC = TimeZones.toUtc(start);
-        LocalDateTime endUTC = TimeZones.toUtc(end);
-        System.out.println("Start Time: " + start + "\nEnd Time: " + end);
 
         try {
             String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Last_Update = now(), Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";

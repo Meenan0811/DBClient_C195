@@ -1,6 +1,5 @@
 package DBAccess;
 
-import Model.User;
 import helper.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,11 +9,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
+ * Contains methods to pass SQL commands to database and retrieve information from Users table
  * @author Matthew Meenan
  */
 public abstract class UserSQL {
 
+    /**
+     * PAsses SQL commands to database to retrieve all User names and Passwords
+     * @return ObservableList<user>
+     */
     public static ObservableList<Model.User> getUsers() {
         ObservableList<Model.User> userList = FXCollections.observableArrayList();
 

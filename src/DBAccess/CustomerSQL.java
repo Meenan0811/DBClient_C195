@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.Year;
 
 /**
  * Contains methods to Pass SQL commands to database and retrieve, update, or add new Customer information to Customers table
@@ -89,7 +88,7 @@ public abstract class CustomerSQL {
     }
 
     /**
-     *
+     * Passes SQL command to update the current customer based on their ID with the new information provided by the user
      *
      */
     public static int editCust(int custId, String custName, String custAddress, String postal, String phone, String updateBy, int divId) {
@@ -135,21 +134,4 @@ public abstract class CustomerSQL {
         return -1;
     }
 
-    public static int custCreated(int year) {
-        int count = 0;
-        try {
-            String sql = "SELECT COUNT(Customer_ID) from customers where year(Create_Date) = ?";
-            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
-            ps.setInt(1, year);
-
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                count = rs.getInt(1);
-            }
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-       return count;
-    }
 }
