@@ -167,9 +167,9 @@ public class Appt {
             LocalDateTime existingstartTime = a.getStart();
             LocalDateTime existingendTime = a.getEnd();
             int existingId = a.getCustId();
+            boolean found = false;
 
             if (existingId == custId && existingstartTime.isBefore(end) && start.isBefore(existingendTime)) {
-                Alerts.alertMessage(9);
                 return true;
             }
 
@@ -194,7 +194,6 @@ public class Appt {
             int existingApptId = a.getApptId();
             if (existingApptId != ApptId) {
                 if (existingId == custId && existingstartTime.isBefore(end) && start.isBefore(existingendTime)) {
-                    Alerts.alertMessage(9);
                     return true;
                 }
             }

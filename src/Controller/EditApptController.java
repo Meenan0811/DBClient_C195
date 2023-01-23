@@ -137,8 +137,9 @@ public class EditApptController implements Initializable {
             if(title.isEmpty() || description.isEmpty() || location.isEmpty() || type.isEmpty()) {
                 Alerts.alertMessage(4);
             }
-            if(!Appt.verifyDateTime(startDate, endDate)) {
-
+            if(!Appt.verifyDateTime(startDate, endDate)) { }
+            if (Appt.overlap(startDate, endDate, custId, apptId)) {
+                Alerts.alertMessage(9);
             }
             else if (title.isEmpty() == false && description.isEmpty() == false && location.isEmpty() == false && type.isEmpty() == false && Appt.verifyDateTime(startDate, endDate) == true) {
                 ApptSQL.editAppt(apptId, title, description, location, type, startDate, endDate, LoginController.currUser, custId, userId, contactId);
