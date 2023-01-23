@@ -18,7 +18,9 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -81,6 +83,8 @@ public class LoginController implements Initializable {
         ObservableList<Model.User> userList = UserSQL.getUsers();
         boolean valid = false;
         this.currUser = userName;
+        LocalDateTime curDate = LocalDateTime.now();
+        String dateTimeFormat = "MM/dd/yyyy HH:mm";
 
 
         for(User u: userList) {
@@ -91,6 +95,7 @@ public class LoginController implements Initializable {
                 valid = true;
                 this.currUserId = u.getUserId();
 
+
                 Scenes.toMain(actionEvent);
                 Appt.immediateAppt();
 
@@ -98,7 +103,7 @@ public class LoginController implements Initializable {
                     PrintWriter pw = new PrintWriter(new FileOutputStream(
                             "login_activty.txt",
                             true ));
-                    pw.append("Login Attempt: " + LocalDate.now() + "\nBy:" + userName + " Succesfull.\n");
+                    pw.append("Login Attempt: " + curDate.format(DateTimeFormatter.ofPattern(dateTimeFormat)) + "\nBy:" + userName + " Succesfull.\n");
                     pw.close();
                 }
                 catch(FileNotFoundException e) {
@@ -114,7 +119,7 @@ public class LoginController implements Initializable {
                 PrintWriter pw = new PrintWriter(new FileOutputStream(
                         "login_activty.txt",
                         true ));
-                pw.append("Login Attempt: " + LocalDate.now() + " at " + Timestamp.valueOf(LocalDateTime.now()) + "\nBy:" + userName + " Failed.\n");
+                pw.append("Login Attempt: " + curDate.format(DateTimeFormatter.ofPattern(dateTimeFormat)) + "\nBy:" + userName + " Failed.\n");
                 pw.close();
         }
             catch(FileNotFoundException e) {

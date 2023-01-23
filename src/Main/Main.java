@@ -10,6 +10,11 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 
+/**
+ * Calls JDBC.openConnection method to connects to database, launches login screen, and closes database connection upon program exit
+ * @author Matthew Meenan
+ * @version 1.0
+ */
 public class Main extends Application {
 
 
