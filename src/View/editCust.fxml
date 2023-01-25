@@ -24,10 +24,12 @@
       <Label layoutX="35.0" layoutY="45.0" text="Customer ID" />
       <ComboBox fx:id="countryCombo" layoutX="142.0" layoutY="245.0" onAction="#setDivCol" prefWidth="150.0" />
       <Label layoutX="35.0" layoutY="245.0" text="Country" />
-      <TableView fx:id="countryTable" layoutX="378.0" layoutY="43.0" prefHeight="290.0" prefWidth="285.0">
+      <TableView fx:id="countryTable" layoutX="378.0" layoutY="43.0" prefHeight="186.0" prefWidth="285.0">
         <columns>
           <TableColumn fx:id="stateCol" editable="false" prefWidth="284.0" text="State" />
         </columns>
       </TableView>
+      <TextField fx:id="curStatefield" layoutX="514.0" layoutY="250.0" />
+      <Label fx:id="curStateLabel" layoutX="378.0" layoutY="254.0" text="Label" />
    </children>
 </AnchorPane>

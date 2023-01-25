@@ -166,10 +166,17 @@ public abstract class Alerts {
      * @param apptId
      */
     public static void upcomingAppt(int apptId) {
+        ObservableList<Appt> apptList = ApptSQL.getAppts();
+        String apptStart = "No Time Found";
         if (apptId > -1) {
+            for (Appt a : apptList) {
+                if (a.getApptId() == apptId) {
+                    apptStart = a.getFormatStart();
+                }
+            }
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("Upcoming Appointment");
-            alert.setContentText("Appointment ID: " + apptId + " begins soon");
+            alert.setContentText("Appointment ID: " + apptId + " scheduled for " + apptStart +  " begins soon");
             alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

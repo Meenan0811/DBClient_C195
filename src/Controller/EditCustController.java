@@ -28,6 +28,10 @@ import static Controller.MainWinController.passCust;
  */
 public class EditCustController implements Initializable {
     @FXML
+    private Label curStateLabel;
+    @FXML
+    private TextField curStatefield;
+    @FXML
     private TextField custNameText;
     @FXML
     private TextField phoneText;
@@ -72,6 +76,7 @@ public class EditCustController implements Initializable {
         countryCombo.setValue(getPassCustCountry());
         setDivCol();
         countryCombo.setOnAction(event -> setDivCol());
+
 
         custNameText.setText(cust.getName());
         phoneText.setText(cust.getPhone());
