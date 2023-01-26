@@ -55,7 +55,7 @@ public class FLDivision {
     public int getCountryId() { return this.countryId; }
 
     /**
-     * Returns Division ID of selected FLDivision object from Table
+     * Returns Division ID of provided FLDivision object
      */
     public static int getDivId(Object object) {
         FLDivision currDiv = FLDivision.class.cast(object);
@@ -63,7 +63,4 @@ public class FLDivision {
 
         return divId;
     }
-
-
-
 }

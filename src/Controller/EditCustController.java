@@ -78,11 +78,13 @@ public class EditCustController implements Initializable {
         countryCombo.setOnAction(event -> setDivCol());
 
 
+
         custNameText.setText(cust.getName());
         phoneText.setText(cust.getPhone());
         addressText.setText(cust.getAddress());
         postalText.setText(cust.getPostal());
         custIdText1.setText(Integer.toString(cust.getCustId()));
+        curStatefield.setText(FLDivisionSQL.getFLDiv(cust.getDivId()));
 
     }
 
@@ -105,7 +107,13 @@ public class EditCustController implements Initializable {
             String phone = phoneText.getText();
             String address = addressText.getText();
             String postal = postalText.getText();
-            int divId = FLDivision.getDivId(countryTable.getSelectionModel().getSelectedItem());
+            int divId = -1;
+            if (countryTable.getSelectionModel().getSelectedItem() == null) {
+                 divId = cust.getDivId();
+            }
+            else {
+                 divId = FLDivision.getDivId(countryTable.getSelectionModel().getSelectedItem());
+            }
 
             if (custName.isEmpty() || phone.isEmpty() || address.isEmpty() || postal.isEmpty()) {
                 Alerts.alertMessage(4);
@@ -164,15 +172,20 @@ public class EditCustController implements Initializable {
                 }
             }
 
-            //Lamda's that compare the value of String temp to available countries and sets Column header appropriately
-            countryList.forEach(c -> { if (temp.equals("U.S")) stateCol.setText("States");});
-            countryList.forEach(c -> { if (temp.equals("UK")) stateCol.setText("Regions");});
-            countryList.forEach(c -> { if (temp.equals("Canada")) stateCol.setText("Provinces");});
+            //Lamda's that compare the value of String temp to available countries and sets Column header and State Label appropriately
+            countryList.forEach(c -> { if (temp.equals("U.S")) stateCol.setText("States"); curStateLabel.setText("Current State");});
+            countryList.forEach(c -> { if (temp.equals("UK")) stateCol.setText("Regions"); curStateLabel.setText("Current Region");});
+            countryList.forEach(c -> { if (temp.equals("Canada")) stateCol.setText("Provinces"); curStateLabel.setText("Current Province");});
+
 
             countryTable.setItems(tempDivList);
             stateCol.setCellValueFactory(new PropertyValueFactory<>("div"));
 
         }
+    }
+
+    private void hideCurState(ActionEvent event) {
+        curStateLabel.setVisible(false);
     }
 
 

@@ -50,6 +50,32 @@ public abstract class FLDivisionSQL {
         return allDivList;
     }
 
+    /**
+     * PAsses SQL command to database and returns First LEvel Division based on Division ID provided
+     * @param divId
+     * @return String
+     */
+    public static String getFLDiv(int divId) {
+        String flDiv = "No First Level Division found";
+
+        try {
+            String sql = "SElECT * FROM first_level_divisions WHERE Division_ID = ?";
+            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+            ps.setInt(1, divId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                flDiv = rs.getString(2);
+            }
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("SQL Exception thrown");
+        }
+        return flDiv;
+    }
+
 
 
 }
