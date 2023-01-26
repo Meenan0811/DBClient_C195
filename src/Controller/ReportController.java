@@ -155,6 +155,9 @@ public class ReportController implements Initializable {
 
     /**
      * Adds all appropriate information to combo boxes
+     *
+     * Includes Lambda to add all Month values to an months List using Stream and forEach method
+     * I chose to use the lambda for this as it decreased the amount of code needed to be written
      */
     public void setComboBox() {
         //Lambda to add all Month values to an months List using Stream and forEach method

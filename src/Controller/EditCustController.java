@@ -153,6 +153,9 @@ public class EditCustController implements Initializable {
 
     /**
      * Changes Table to display appropriate state based on selected Country within ComboBox
+     *
+     * Includes three Lamda's that compare the value of String temp to available countries and sets Column header and State Label appropriately
+     * I chose to use the lambdas for this as it decreased the amount of code written and made the overall code easier to read
      */
     public void setDivCol() {
         String temp;
