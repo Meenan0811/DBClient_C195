@@ -86,11 +86,10 @@ public class EditCustController implements Initializable {
         custIdText1.setText(Integer.toString(cust.getCustId()));
         curStatefield.setText(FLDivisionSQL.getFLDiv(cust.getDivId()));
 
-        String tempCountry = countryCombo.getSelectionModel().toString();
 
-        countryList.forEach(c -> { if (tempCountry.equals("U.S")) curStateLabel.setText("Current State Selected");});
-        countryList.forEach(c -> { if (tempCountry.equals("UK")) curStateLabel.setText("Current Region Selected");});
-        countryList.forEach(c -> { if (tempCountry.equals("Canada")) curStateLabel.setText("Current Province Selected");});
+
+
+
 
     }
 

@@ -29,7 +29,7 @@
           <TableColumn fx:id="stateCol" editable="false" prefWidth="284.0" text="State" />
         </columns>
       </TableView>
-      <TextField fx:id="curStatefield" editable="false" layoutX="514.0" layoutY="250.0" />
-      <Label fx:id="curStateLabel" layoutX="378.0" layoutY="254.0" text="Label" />
+      <TextField fx:id="curStatefield" editable="false" layoutX="446.0" layoutY="280.0" />
+      <Label fx:id="curStateLabel" layoutX="400.0" layoutY="249.0" text="Previously Selected State, Region, or Province" />
    </children>
 </AnchorPane>
