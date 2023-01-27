@@ -11,10 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -257,10 +254,23 @@ public class MainWinController implements Initializable {
      * @throws IOException
      */
     public void deleteCust(ActionEvent event) throws IOException {
-        Customers cust = Customers.class.cast(custTable.getSelectionModel().getSelectedItem());
-        Alerts.deleteCust(cust);
-        Scenes.toMain(event);
+        try {
+            Customers cust = Customers.class.cast(custTable.getSelectionModel().getSelectedItem());
+            if (cust != null) {
+
+                Alerts.deleteCust(cust);
+                Scenes.toMain(event);
+            } else {
+                throw new NullPointerException();
+            }
+        } catch (NullPointerException n) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setContentText("Please select a Customer to delete");
+            error.setHeaderText("Delete Customer");
+            error.showAndWait();
+        }
     }
+
 
     /**
      * Calls toReports method of Scenes class

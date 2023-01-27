@@ -86,6 +86,12 @@ public class EditCustController implements Initializable {
         custIdText1.setText(Integer.toString(cust.getCustId()));
         curStatefield.setText(FLDivisionSQL.getFLDiv(cust.getDivId()));
 
+        String tempCountry = countryCombo.getSelectionModel().toString();
+
+        countryList.forEach(c -> { if (tempCountry.equals("U.S")) curStateLabel.setText("Current State Selected");});
+        countryList.forEach(c -> { if (tempCountry.equals("UK")) curStateLabel.setText("Current Region Selected");});
+        countryList.forEach(c -> { if (tempCountry.equals("Canada")) curStateLabel.setText("Current Province Selected");});
+
     }
 
     /**
@@ -175,10 +181,10 @@ public class EditCustController implements Initializable {
                 }
             }
 
-            //Lamda's that compare the value of String temp to available countries and sets Column header and State Label appropriately
-            countryList.forEach(c -> { if (temp.equals("U.S")) stateCol.setText("States"); curStateLabel.setText("Current State");});
-            countryList.forEach(c -> { if (temp.equals("UK")) stateCol.setText("Regions"); curStateLabel.setText("Current Region");});
-            countryList.forEach(c -> { if (temp.equals("Canada")) stateCol.setText("Provinces"); curStateLabel.setText("Current Province");});
+            //Lamda's that compare the value of String temp to available countries and sets Column header appropriately
+            countryList.forEach(c -> { if (temp.equals("U.S")) stateCol.setText("States");});
+            countryList.forEach(c -> { if (temp.equals("UK")) stateCol.setText("Regions");});
+            countryList.forEach(c -> { if (temp.equals("Canada")) stateCol.setText("Provinces");});
 
 
             countryTable.setItems(tempDivList);
@@ -186,10 +192,4 @@ public class EditCustController implements Initializable {
 
         }
     }
-
-    private void hideCurState(ActionEvent event) {
-        curStateLabel.setVisible(false);
-    }
-
-
 }

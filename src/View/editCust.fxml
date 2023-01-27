@@ -29,7 +29,7 @@
           <TableColumn fx:id="stateCol" editable="false" prefWidth="284.0" text="State" />
         </columns>
       </TableView>
-      <TextField fx:id="curStatefield" layoutX="514.0" layoutY="250.0" />
+      <TextField fx:id="curStatefield" editable="false" layoutX="514.0" layoutY="250.0" />
       <Label fx:id="curStateLabel" layoutX="378.0" layoutY="254.0" text="Label" />
    </children>
 </AnchorPane>

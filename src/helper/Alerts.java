@@ -137,7 +137,7 @@ public abstract class Alerts {
         int custId = cust.getCustId();
         ObservableList<Appt> apptList = ApptSQL.getAppts();
 
-        try {
+        //try {
             if (cust != null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText("Delete Customer");
@@ -152,13 +152,13 @@ public abstract class Alerts {
                     CustomerSQL.deleteCust(custId);
                 }
             }
-            else { throw new NullPointerException(); }
+            /*else { throw new NullPointerException(); }
         }catch (NullPointerException n) {
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setContentText("Please select a Customer to delete");
             error.setHeaderText("Delete Customer");
             error.showAndWait();
-        }
+        }*/
     }
 
     /**
